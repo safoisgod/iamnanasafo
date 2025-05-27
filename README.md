@@ -1,2 +1,0 @@
-# iamnanasafo
-my portfolio site
