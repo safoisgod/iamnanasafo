@@ -1,0 +1,728 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nana Kwesi Safo - Portfolio</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      background-color: #081000;
+      font-family: Arial, sans-serif;
+      color: #d3d3d3;
+    }
+    .banner {
+      background-image: url('assets/img/banner.jpg');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      height: 70vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      position: relative;
+      color: white;
+    }
+    .banner::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.6);
+      z-index: 1;
+    }
+    .banner > * {
+      position: relative;
+      z-index: 2;
+    }
+    .banner h1 {
+      font-size: 3rem;
+      font-weight: bold;
+    }
+    .banner h1 .name {
+      color: #ffeb3b;
+    }
+    .banner p {
+      font-size: 1.0rem;
+      margin-top: 1rem;
+      max-width: 600px;
+      line-height: 1.5;
+    }
+    .social-links {
+      margin-top: 1.5rem;
+      display: flex;
+      gap: 1rem;
+    }
+    .social-icon {
+      background: rgba(255, 255, 255, 0.2);
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      transition: background 0.3s ease;
+      text-decoration: none;
+    }
+    .social-icon:hover {
+      background: rgba(255, 255, 255, 0.4);
+    }
+    .social-icon svg {
+      fill: white;
+      width: 24px;
+      height: 24px;
+    }
+    .about, .services, .skills, .projects, .education {
+      max-width: 1200px;
+      margin: 3rem auto;
+      padding: 0 1rem;
+      padding-bottom: 3rem;
+    }
+    .about-header, .services-header, .skills-header, .projects-header, .education-header {
+      text-align: center;
+      position: relative;
+      margin-bottom: 2rem;
+      animation: fadeIn 1s ease-in;
+    }
+    .about-header h2, .services-header h2, .skills-header h2, .projects-header h2, .education-header h2 {
+      font-size: 2rem;
+      font-weight: normal;
+      color: #ffeb3b;
+      position: relative;
+      display: inline-block;
+      text-transform: uppercase;
+    }
+    .about-header h2::after, .services-header h2::after, .skills-header h2::after, .projects-header h2::after, .education-header h2::after {
+      content: '';
+      position: absolute;
+      bottom: -5px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 100px;
+      height: 3px;
+      background: linear-gradient(to right, transparent, #ffeb3b, transparent);
+    }
+    .about-bg, .services-bg, .skills-bg, .projects-bg, .education-bg {
+      position: absolute;
+      color: rgba(255, 255, 255, 0.05);
+      font-size: 6rem;
+      font-weight: bold;
+      font-style: italic;
+      text-transform: uppercase;
+      z-index: -1;
+      pointer-events: none;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      white-space: nowrap;
+    }
+    .about-content {
+      display: flex;
+      align-items: flex-start;
+      gap: 2rem;
+    }
+    .profile-img {
+      flex: 0 0 30%;
+      max-width: 30%;
+    }
+    .profile-img img {
+      width: 100%;
+      height: 400px;
+      object-fit: cover;
+      border-radius: 10px;
+    }
+    .about-text {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    .about-text h3 {
+      font-size: 1.8rem;
+      font-weight: normal;
+      color: white;
+      margin-bottom: 0.5rem;
+    }
+    .about-text .specialization {
+      font-size: 1.2rem;
+      color: #ffeb3b;
+      margin-bottom: 1rem;
+      text-transform: uppercase;
+    }
+    .about-text p {
+      font-size: 1rem;
+      line-height: 1.5;
+      margin-bottom: 1rem;
+      color: #a0a0a0;
+    }
+    .about-text .info {
+      font-size: 1rem;
+      line-height: 1.5;
+      margin-bottom: 1rem;
+      color: #a0a0a0;
+    }
+    .about-text .info span {
+      font-weight: bold;
+      color: #d3d3d3;
+    }
+    .cv-button {
+      display: inline-block;
+      padding: 0.75rem 1.5rem;
+      background-color: #ffeb3b;
+      color: #1a1a1a;
+      font-size: 1rem;
+      font-weight: normal;
+      text-decoration: none;
+      border-radius: 5px;
+      transition: background-color 0.3s ease;
+      width: fit-content;
+    }
+    .cv-button:hover {
+      background-color: #ffd700;
+    }
+    .services-grid, .projects-grid, .education-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1rem;
+    }
+    .service-item, .project-item, .education-item {
+      background-color: #2a2a2a;
+      padding: 1.5rem;
+      border-radius: 10px;
+      text-align: center;
+      transition: transform 0.3s ease;
+    }
+    .service-item:hover, .project-item:hover, .education-item:hover {
+      transform: translateY(-5px);
+    }
+    .service-item img {
+      width: 50px;
+      height: 50px;
+      margin-bottom: 1rem;
+      object-fit: contain;
+    }
+    .service-item h3, .education-item h3 {
+      font-size: 1.2rem;
+      font-weight: normal;
+      margin-bottom: 0.5rem;
+    }
+    .service-item p, .education-item p {
+      font-size: 0.9rem;
+      line-height: 1.4;
+      color: #a0a0a0;
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      min-height: 3.6em; /* 3 lines at 1.2em line-height */
+    }
+    .project-filter {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      margin-bottom: 2rem;
+    }
+    .project-filter button {
+      padding: 0.5rem 1rem;
+      background-color: #2a2a2a;
+      color: #d3d3d3;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+    .project-filter button.active, .project-filter button:hover {
+      background-color: #ffeb3b;
+      color: #1a1a1a;
+    }
+    .project-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .project-item img {
+      width: 100%;
+      height: 150px;
+      object-fit: cover;
+      border-radius: 10px;
+      margin-bottom: 0.5rem;
+    }
+    .project-item h3 {
+      font-size: 1.1rem;
+      font-weight: normal;
+      color: #d3d3d3;
+      margin-bottom: 0.3rem;
+    }
+    .project-item p {
+      font-size: 0.8rem;
+      color: #a0a0a0;
+      margin-bottom: 0.5rem;
+    }
+    .project-item a {
+      color: #ffeb3b;
+      text-decoration: none;
+      font-size: 0.9rem;
+      position: relative;
+      display: inline-block;
+    }
+    .project-item a::after {
+      content: '';
+      position: absolute;
+      width: 0;
+      height: 2px;
+      bottom: -2px;
+      left: 0;
+      background: linear-gradient(to right, #ffeb3b, #ffd700);
+      transition: width 0.3s ease;
+    }
+    .project-item a:hover::after {
+      width: 100%;
+    }
+    .skills-content {
+      display: flex;
+      gap: 2rem;
+      width: 100%;
+    }
+    .skills-text {
+      flex: 1;
+      padding: 1rem;
+    }
+    .skills-text h3 {
+      font-size: 1.8rem;
+      font-weight: normal;
+      color: white;
+      margin-bottom: 0.5rem;
+    }
+    .skills-text hr {
+      border: 1px solid #ffeb3b;
+      width: 30%;
+      margin: 0.5rem 0;
+    }
+    .skills-text p {
+      color: #c0c0c0;
+      font-size: 1rem;
+      line-height: 1.5;
+    }
+    .skills-list {
+      flex: 1;
+      padding: 1rem;
+    }
+    .skills-list h4 {
+      font-size: 1.3rem;
+      font-weight: normal;
+      color: #c0c0c0;
+      margin-bottom: 0.3rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+    }
+    .skill-bar {
+      width: 100%;
+      background-color: #2a2a2a;
+      border-radius: 5px;
+      height: 4px;
+      margin-bottom: 0.7rem;
+    }
+    .skill-progress {
+      height: 100%;
+      background-color: #ffeb3b;
+      border-radius: 5px;
+      transition: width 0.3s ease;
+    }
+    .column-divider {
+      width: 1px;
+      background-color: #4a4a4a;
+      margin: 0 1rem;
+    }
+    .tech-carousel {
+      margin-top: 1rem;
+      overflow: hidden;
+      white-space: nowrap;
+      padding: 1rem 0;
+      width: 100%;
+    }
+    .tech-carousel-inner {
+      display: inline-flex;
+      animation: slide 20s linear infinite;
+    }
+    .tech-item {
+      flex: 0 0 12.5%;
+      margin-right: 1rem;
+      width: 80px;
+      height: 80px;
+    }
+    .tech-item img {
+      width: 100%;
+      height: 80%;
+      object-fit: contain;
+    }
+    @keyframes slide {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    @media (max-width: 768px) {
+      .banner h1 {
+        font-size: 2rem;
+      }
+      .banner p {
+        font-size: 1rem;
+        padding: 0 1rem;
+      }
+      .about-content, .skills-content {
+        flex-direction: column;
+        align-items: center;
+      }
+      .profile-img {
+        flex: 0 0 100%;
+        max-width: 100%;
+        margin-bottom: 1rem;
+      }
+      .profile-img img {
+        height: 300px;
+      }
+      .about-text {
+        text-align: center;
+      }
+      .services-grid, .projects-grid, .education-grid {
+        grid-template-columns: 1fr;
+      }
+      .column-divider {
+        display: none;
+      }
+      .tech-carousel-inner {
+        animation: none;
+        display: flex;
+        justify-content: center;
+        flex-wrap: nowrap;
+      }
+      .tech-item {
+        flex: 0 0 60px;
+        width: 60px;
+        height: 60px;
+      }
+      .project-filter {
+        flex-wrap: wrap;
+        gap: 0.5rem;
+      }
+      .project-filter button {
+        padding: 0.4rem 0.8rem;
+        font-size: 0.9rem;
+      }
+    }
+    @media (min-width: 601px) and (max-width: 768px) {
+      .profile-img img {
+        height: 250px;
+      }
+    }
+    @media (max-width: 600px) {
+      .banner h1 {
+        font-size: 1.5rem;
+      }
+      .banner p {
+        font-size: 0.9rem;
+      }
+      .profile-img img {
+        height: 200px;
+      }
+      .tech-item {
+        flex: 0 0 50px;
+        width: 50px;
+        height: 50px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="banner">
+    <h1>Hi, I am <span class="name">Nana Kwesi Safo</span></h1>
+    <p>I'm a passionate Data Analyst and Backend Web Developer, <br>driving insights and building solutions for public health and development.</p>
+    <div class="social-links">
+      <a href="https://facebook.com" target="_blank" class="social-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9 8h-3v4h3v12h5v-12h3.642l.358-4h-4v-1.667c0-.955.192-1.333 1.115-1.333h2.885v-5h-3.808c-3.596 0-5.192 1.583-5.192 4.615v3.385z"/></svg>
+      </a>
+      <a href="https://twitter.com" target="_blank" class="social-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+      </a>
+      <a href="https://github.com" target="_blank" class="social-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+      </a>
+      <a href="https://linkedin.com" target="_blank" class="social-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4.98 3.5c0 1.381-1.11 2.5-2.48 2.5s-2.48-1.119-2.48-2.5c0-1.38 1.11-2.5 2.48-2.5s2.48 1.12 2.48 2.5zm.02 4.5h-5v16h5v-16zm7.982 0h-4.968v16h4.969v-8.399c0-4.67 6.029-5.052 6.029 0v8.399h4.988v-10.131c0-7.88-8.922-7.593-11.018-3.714v-2.155z"/></svg>
+      </a>
+    </div>
+  </header>
+  <section class="about">
+    <div class="about-header">
+      <h2>ABOUT ME<span class="about-bg">ABOUT ME</span></h2>
+    </div>
+    <div class="about-content">
+      <div class="profile-img">
+        <img src="assets/img/me.png" alt="Nana Kwesi Safo">
+      </div>
+      <div class="about-text">
+        <h3>Hi There! I'm Nana Kwesi</h3>
+        <div class="specialization">Data Analyst & Backend Web Developer</div>
+        <p>I'm a results-driven professional with over 3 years of experience in data transformation, KPI reporting, and dashboard design. Passionate about leveraging data analytics and web development to improve decision-making in public health and development contexts.</p>
+        <div class="info">
+          <p><span>Birthday:</span> January 15, 1990</p>
+          <p><span>Email:</span> nana.kwesi@example.com</p>
+          <p><span>Phone:</span> +233 24 949 3432</p>
+          <p><span>Languages:</span> English, Akan</p>
+          <p><span>Freelance:</span> Available</p>
+        </div>
+        <a href="cv.pdf" class="cv-button" download>Download CV</a>
+      </div>
+    </div>
+  </section>
+  <section class="services">
+    <div class="services-header">
+      <h2>SERVICES<span class="services-bg">SERVICES</span></h2>
+    </div>
+    <div class="services-grid">
+      <div class="service-item">
+        <img src="assets/img/services/business_analytics.png" alt="Business Analytics">
+        <h3>Business Analytics</h3>
+        <p>Harnessing data to uncover insights, optimize strategies, and drive business performance through advanced analytical techniques and reporting.</p>
+      </div>
+      <div class="service-item">
+        <img src="assets/img/services/data_cleaning.png" alt="Data Wrangling">
+        <h3>Data Wrangling</h3>
+        <p>Transforming and cleaning complex raw data into structured, usable formats to enable accurate and efficient analysis for decision-making.</p>
+      </div>
+      <div class="service-item">
+        <img src="assets/img/services/data_visualization.png" alt="Data Visualization">
+        <h3>Data Visualization</h3>
+        <p>Creating compelling and interactive visual representations of data to communicate insights clearly and support strategic business decisions.</p>
+      </div>
+      <div class="service-item">
+        <img src="assets/img/services/predictive_analysis.png" alt="Predictive Analytics">
+        <h3>Predictive Analytics</h3>
+        <p>Developing statistical models to forecast trends, predict outcomes, and guide future strategies using advanced data analysis techniques.</p>
+      </div>
+      <div class="service-item">
+        <img src="assets/img/services/evaluation.png" alt="Monitoring & Evaluation">
+        <h3>Monitoring & Evaluation</h3>
+        <p>Designing reports and dashboards to track project performance, assess impact, and ensure alignment with organizational goals and objectives.</p>
+      </div>
+      <div class="service-item">
+        <img src="assets/img/services/gis.png" alt="Geospatial Analysis">
+        <h3>Geospatial Analysis</h3>
+        <p>Analyzing spatial data using GIS tools to produce detailed maps and actionable insights for urban planning and development projects.</p>
+      </div>
+    </div>
+  </section>
+  <section class="skills">
+    <div class="skills-header">
+      <h2>SKILLS<span class="skills-bg">SKILLS</span></h2>
+    </div>
+    <div class="skills-content">
+      <div class="skills-text">
+        <h3>My Skillset</h3>
+        <hr style="border: 1px solid #ffeb3b; width: 30%; margin: 0.5rem 0;">
+        <p>With expertise in data analytics and backend web development, I specialize in tools like Python, SQL, and Power BI to deliver actionable insights and robust solutions.</p>
+      </div>
+      <div class="column-divider"></div>
+      <div class="skills-list">
+        <h4>Python <span>80%</span></h4>
+        <div class="skill-bar"><div class="skill-progress" style="width: 80%;"></div></div>
+        <h4>SQL <span>85%</span></h4>
+        <div class="skill-bar"><div class="skill-progress" style="width: 85%;"></div></div>
+        <h4>Power BI <span>75%</span></h4>
+        <div class="skill-bar"><div class="skill-progress" style="width: 75%;"></div></div>
+        <h4>Excel <span>95%</span></h4>
+        <div class="skill-bar"><div class="skill-progress" style="width: 95%;"></div></div>
+        <h4>Pandas & NumPy <span>80%</span></h4>
+        <div class="skill-bar"><div class="skill-progress" style="width: 80%;"></div></div>
+        <h4>Matplotlib & Seaborn <span>70%</span></h4>
+        <div class="skill-bar"><div class="skill-progress" style="width: 70%;"></div></div>
+      </div>
+    </div>
+    <div class="tech-carousel">
+      <div class="tech-carousel-inner">
+        <div class="tech-item">
+          <img src="assets/img/tech_carousel/anaconda.png" alt="Anaconda">
+        </div>
+        <div class="tech-item">
+          <img src="assets/img/tech_carousel/python.png" alt="Python">
+        </div>
+        <div class="tech-item">
+          <img src="assets/img/tech_carousel/pycharm.png" alt="PyCharm">
+        </div>
+        <div class="tech-item">
+          <img src="assets/img/tech_carousel/sql.png" alt="SQL">
+        </div>
+        <div class="tech-item">
+          <img src="assets/img/tech_carousel/mysql.png" alt="MySQL">
+        </div>
+        <div class="tech-item">
+          <img src="assets/img/tech_carousel/excel.webp" alt="Excel">
+        </div>
+        <div class="tech-item">
+          <img src="assets/img/tech_carousel/word.png" alt="Word">
+        </div>
+        <div class="tech-item">
+          <img src="assets/img/tech_carousel/PowerBI.png" alt="Power BI">
+        </div>
+        <div class="tech-item">
+          <img src="assets/img/tech_carousel/powerpoint.png" alt="PowerPoint">
+        </div>
+        <div class="tech-item">
+          <img src="assets/img/tech_carousel/html.png" alt="HTML">
+        </div>
+        <div class="tech-item">
+          <img src="assets/img/tech_carousel/css.png" alt="CSS">
+        </div>
+        <div class="tech-item">
+          <img src="assets/img/tech_carousel/visualstudio.png" alt="Visual Studio">
+        </div>
+        <div class="tech-item">
+          <img src="assets/img/tech_carousel/anaconda.png" alt="Anaconda">
+        </div>
+        <div class="tech-item">
+          <img src="assets/img/tech_carousel/python.png" alt="Python">
+        </div>
+        <div class="tech-item">
+          <img src="assets/img/tech_carousel/pycharm.png" alt="PyCharm">
+        </div>
+        <div class="tech-item">
+          <img src="assets/img/tech_carousel/sql.png" alt="SQL">
+        </div>
+        <div class="tech-item">
+          <img src="assets/img/tech_carousel/mysql.png" alt="MySQL">
+        </div>
+        <div class="tech-item">
+          <img src="assets/img/tech_carousel/excel.webp" alt="Excel">
+        </div>
+        <div class="tech-item">
+          <img src="assets/img/tech_carousel/word.png" alt="Word">
+        </div>
+        <div class="tech-item">
+          <img src="assets/img/tech_carousel/PowerBI.png" alt="Power BI">
+        </div>
+        <div class="tech-item">
+          <img src="assets/img/tech_carousel/powerpoint.png" alt="PowerPoint">
+        </div>
+        <div class="tech-item">
+          <img src="assets/img/tech_carousel/html.png" alt="HTML">
+        </div>
+        <div class="tech-item">
+          <img src="assets/img/tech_carousel/css.png" alt="CSS">
+        </div>
+        <div class="tech-item">
+          <img src="assets/img/tech_carousel/visualstudio.png" alt="Visual Studio">
+        </div>
+      </div>
+    </div>
+  </section>
+  <section class="projects">
+    <div class="projects-header">
+      <h2>PROJECTS<span class="projects-bg">PROJECTS</span></h2>
+    </div>
+    <div class="project-filter">
+      <button data-filter="all" class="active">All</button>
+      <button data-filter="powerbi">Power BI</button>
+      <button data-filter="excel">Excel</button>
+      <button data-filter="python">Python</button>
+      <button data-filter="sql">SQL</button>
+    </div>
+    <div class="projects-grid">
+      
+      <a href="#" class="project-item" data-category="powerbi">
+        <img src="assets/img/projects/mobile_dashboard.png" alt="Mobile Sales Dashboard">
+        <h3>Mobile Sales Dashboard</h3>
+        <p>Completed: May 2025</p>
+      </a>
+      <a href="#" class="project-item" data-category="sql">
+        <img src="assets/img/projects/crime_analysis.jpg" alt="Crime Data Analysis">
+        <h3>Data Cleaning - LAPD Crime Data 2020 to Date</h3>
+        <p>Completed: May 2025</p>
+      </a>
+      <a href="#" class="project-item" data-category="powerbi">
+        <img src="assets/img/projects/coffee_dashboard.png" alt="Coffee Shop Dashboard">
+        <h3>Coffee Shop Dashboard</h3>
+        <p>Completed: April 2025</p>
+      </a>
+      <a href="#" class="project-item" data-category="powerbi">
+        <img src="assets/img/projects/LOGISTICS.png" alt="Logistics Management Dashboard">
+        <h3>Logistics Management Dashboard</h3>
+        <p>Completed: March 2025</p>
+      </a>
+      <a href="#" class="project-item" data-category="python">
+        <img src="assets/img/projects/malaria_analysis.png" alt="EDA World Malaria with Python">
+        <h3>Exploratory Data Analysis - World Malaria</h3>
+        <p>Completed: July 2024</p>
+      </a>
+      <a href="#" class="project-item" data-category="sql">
+        <img src="assets/img/projects/hospital_database.jpg" alt="Hospital Database">
+        <h3>Hospital Database Management System</h3>
+        <p>Completed: incomplete</p>
+      </a>
+      <a href="#" class="project-item" data-category="excel">
+        <img src="assets/img/projects/traversing_computation.png" alt="Geomatics Traversing">
+        <h3>Automated Traversing Computation</h3>
+        <p>Completed: June 2024</p>
+      </a>
+    </div>
+  </section>
+  <section class="education">
+    <div class="education-header">
+      <h2>EDUCATION & CERTIFICATIONS<span class="education-bg">EDUCATION</span></h2>
+    </div>
+    <div class="education-grid">
+      <div class="education-item">
+        <h3>B.Sc. Geomatic Engineering</h3>
+        <p>Kwame Nkrumah University of Science and Technology, Kumasi, Ghana<br>Sep 2018 - Aug 2022</p>
+      </div>
+      <div class="education-item">
+        <h3>Data Analytics</h3>
+        <p>ALX Academy, Accra, Ghana<br>Mar 2024 - Aug 2024</p>
+      </div>
+      <div class="education-item">
+        <h3>Backend Web Development</h3>
+        <p>ALX Academy, Accra, Ghana<br>Mar 2025 - Present</p>
+      </div>
+      <div class="education-item">
+        <h3>Microsoft Excel Certification</h3>
+        <p>Coursera<br>Nov 2024</p>
+      </div>
+      <div class="education-item">
+        <h3>Python Certification</h3>
+        <p>Kaggle<br>Aug 2024</p>
+      </div>
+      <div class="education-item">
+        <h3>Google Analytics Certification</h3>
+        <p>Google<br>Apr 2024</p>
+      </div>
+    </div>
+  </section>
+  <script>
+    document.querySelectorAll('.project-filter button').forEach(button => {
+      button.addEventListener('click', () => {
+        document.querySelectorAll('.project-filter button').forEach(btn => btn.classList.remove('active'));
+        button.classList.add('active');
+        const filter = button.getAttribute('data-filter');
+        document.querySelectorAll('.project-item').forEach(item => {
+          if (filter === 'all' || item.getAttribute('data-category') === filter) {
+            item.style.display = 'block';
+          } else {
+            item.style.display = 'none';
+          }
+        });
+      });
+    });
+  </script>
+</body>
+</html>
