@@ -1,728 +1,1856 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Nana Kwesi Safo - Portfolio</title>
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-    body {
-      background-color: #081000;
-      font-family: Arial, sans-serif;
-      color: #d3d3d3;
-    }
-    .banner {
-      background-image: url('assets/img/banner.jpg');
-      background-size: cover;
-      background-position: center;
-      background-repeat: no-repeat;
-      height: 70vh;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      text-align: center;
-      position: relative;
-      color: white;
-    }
-    .banner::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(0, 0, 0, 0.6);
-      z-index: 1;
-    }
-    .banner > * {
-      position: relative;
-      z-index: 2;
-    }
-    .banner h1 {
-      font-size: 3rem;
-      font-weight: bold;
-    }
-    .banner h1 .name {
-      color: #ffeb3b;
-    }
-    .banner p {
-      font-size: 1.0rem;
-      margin-top: 1rem;
-      max-width: 600px;
-      line-height: 1.5;
-    }
-    .social-links {
-      margin-top: 1.5rem;
-      display: flex;
-      gap: 1rem;
-    }
-    .social-icon {
-      background: rgba(255, 255, 255, 0.2);
-      border-radius: 50%;
-      width: 40px;
-      height: 40px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      transition: background 0.3s ease;
-      text-decoration: none;
-    }
-    .social-icon:hover {
-      background: rgba(255, 255, 255, 0.4);
-    }
-    .social-icon svg {
-      fill: white;
-      width: 24px;
-      height: 24px;
-    }
-    .about, .services, .skills, .projects, .education {
-      max-width: 1000px;
-      margin: 3rem auto;
-      padding: 0 1rem;
-      padding-bottom: 3rem;
-    }
-    .about-header, .services-header, .skills-header, .projects-header, .education-header {
-      text-align: center;
-      position: relative;
-      margin-bottom: 2rem;
-      animation: fadeIn 1s ease-in;
-    }
-    .about-header h2, .services-header h2, .skills-header h2, .projects-header h2, .education-header h2 {
-      font-size: 2rem;
-      font-weight: normal;
-      color: #ffeb3b;
-      position: relative;
-      display: inline-block;
-      text-transform: uppercase;
-    }
-    .about-header h2::after, .services-header h2::after, .skills-header h2::after, .projects-header h2::after, .education-header h2::after {
-      content: '';
-      position: absolute;
-      bottom: -5px;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 100px;
-      height: 3px;
-      background: linear-gradient(to right, transparent, #ffeb3b, transparent);
-    }
-    .about-bg, .services-bg, .skills-bg, .projects-bg, .education-bg {
-      position: absolute;
-      color: rgba(255, 255, 255, 0.05);
-      font-size: 6rem;
-      font-weight: bold;
-      font-style: italic;
-      text-transform: uppercase;
-      z-index: -1;
-      pointer-events: none;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      white-space: nowrap;
-    }
-    .about-content {
-      display: flex;
-      align-items: flex-start;
-      gap: 2rem;
-    }
-    .profile-img {
-      flex: 0 0 30%;
-      max-width: 30%;
-    }
-    .profile-img img {
-      width: 100%;
-      height: 400px;
-      object-fit: cover;
-      border-radius: 10px;
-    }
-    .about-text {
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-    }
-    .about-text h3 {
-      font-size: 1.8rem;
-      font-weight: normal;
-      color: white;
-      margin-bottom: 0.5rem;
-    }
-    .about-text .specialization {
-      font-size: 1.2rem;
-      color: #ffeb3b;
-      margin-bottom: 1rem;
-      text-transform: uppercase;
-    }
-    .about-text p {
-      font-size: 1rem;
-      line-height: 1.5;
-      margin-bottom: 1rem;
-      color: #a0a0a0;
-    }
-    .about-text .info {
-      font-size: 1rem;
-      line-height: 1.5;
-      margin-bottom: 1rem;
-      color: #a0a0a0;
-    }
-    .about-text .info span {
-      font-weight: bold;
-      color: #d3d3d3;
-    }
-    .cv-button {
-      display: inline-block;
-      padding: 0.75rem 1.5rem;
-      background-color: #ffeb3b;
-      color: #1a1a1a;
-      font-size: 1rem;
-      font-weight: normal;
-      text-decoration: none;
-      border-radius: 5px;
-      transition: background-color 0.3s ease;
-      width: fit-content;
-    }
-    .cv-button:hover {
-      background-color: #ffd700;
-    }
-    .services-grid, .projects-grid, .education-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 1rem;
-    }
-    .service-item, .project-item, .education-item {
-      background-color: #2a2a2a;
-      padding: 1.5rem;
-      border-radius: 10px;
-      text-align: center;
-      transition: transform 0.3s ease;
-    }
-    .service-item:hover, .project-item:hover, .education-item:hover {
-      transform: translateY(-5px);
-    }
-    .service-item img {
-      width: 50px;
-      height: 50px;
-      margin-bottom: 1rem;
-      object-fit: contain;
-    }
-    .service-item h3, .education-item h3 {
-      font-size: 1.2rem;
-      font-weight: normal;
-      margin-bottom: 0.5rem;
-    }
-    .service-item p, .education-item p {
-      font-size: 0.9rem;
-      line-height: 1.4;
-      color: #a0a0a0;
-      display: -webkit-box;
-      -webkit-line-clamp: 3;
-      -webkit-box-orient: vertical;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      min-height: 3.6em; /* 3 lines at 1.2em line-height */
-    }
-    .project-filter {
-      display: flex;
-      justify-content: center;
-      gap: 1rem;
-      margin-bottom: 2rem;
-    }
-    .project-filter button {
-      padding: 0.5rem 1rem;
-      background-color: #2a2a2a;
-      color: #d3d3d3;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-      transition: background-color 0.3s ease;
-    }
-    .project-filter button.active, .project-filter button:hover {
-      background-color: #ffeb3b;
-      color: #1a1a1a;
-    }
-    .project-item {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-    }
-    .project-item img {
-      width: 100%;
-      height: 150px;
-      object-fit: cover;
-      border-radius: 10px;
-      margin-bottom: 0.5rem;
-    }
-    .project-item h3 {
-      font-size: 1.1rem;
-      font-weight: normal;
-      color: #d3d3d3;
-      margin-bottom: 0.3rem;
-    }
-    .project-item p {
-      font-size: 0.8rem;
-      color: #a0a0a0;
-      margin-bottom: 0.5rem;
-    }
-    .project-item a {
-      color: #ffeb3b;
-      text-decoration: none;
-      font-size: 0.9rem;
-      position: relative;
-      display: inline-block;
-    }
-    .project-item a::after {
-      content: '';
-      position: absolute;
-      width: 0;
-      height: 2px;
-      bottom: -2px;
-      left: 0;
-      background: linear-gradient(to right, #ffeb3b, #ffd700);
-      transition: width 0.3s ease;
-    }
-    .project-item a:hover::after {
-      width: 100%;
-    }
-    .skills-content {
-      display: flex;
-      gap: 2rem;
-      width: 100%;
-    }
-    .skills-text {
-      flex: 1;
-      padding: 1rem;
-    }
-    .skills-text h3 {
-      font-size: 1.8rem;
-      font-weight: normal;
-      color: white;
-      margin-bottom: 0.5rem;
-    }
-    .skills-text hr {
-      border: 1px solid #ffeb3b;
-      width: 30%;
-      margin: 0.5rem 0;
-    }
-    .skills-text p {
-      color: #c0c0c0;
-      font-size: 1rem;
-      line-height: 1.5;
-    }
-    .skills-list {
-      flex: 1;
-      padding: 1rem;
-    }
-    .skills-list h4 {
-      font-size: 1.3rem;
-      font-weight: normal;
-      color: #c0c0c0;
-      margin-bottom: 0.3rem;
-      display: flex;
-      justify-content: space-between;
-      align-items: baseline;
-    }
-    .skill-bar {
-      width: 100%;
-      background-color: #2a2a2a;
-      border-radius: 5px;
-      height: 4px;
-      margin-bottom: 0.7rem;
-    }
-    .skill-progress {
-      height: 100%;
-      background-color: #ffeb3b;
-      border-radius: 5px;
-      transition: width 0.3s ease;
-    }
-    .column-divider {
-      width: 1px;
-      background-color: #4a4a4a;
-      margin: 0 1rem;
-    }
-    .tech-carousel {
-      margin-top: 1rem;
-      overflow: hidden;
-      white-space: nowrap;
-      padding: 1rem 0;
-      width: 100%;
-    }
-    .tech-carousel-inner {
-      display: inline-flex;
-      animation: slide 20s linear infinite;
-    }
-    .tech-item {
-      flex: 0 0 12.5%;
-      margin-right: 1rem;
-      width: 80px;
-      height: 80px;
-    }
-    .tech-item img {
-      width: 100%;
-      height: 80%;
-      object-fit: contain;
-    }
-    @keyframes slide {
-      0% { transform: translateX(0); }
-      100% { transform: translateX(-50%); }
-    }
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(20px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-    @media (max-width: 768px) {
-      .banner h1 {
-        font-size: 2rem;
-      }
-      .banner p {
-        font-size: 1rem;
-        padding: 0 1rem;
-      }
-      .about-content, .skills-content {
-        flex-direction: column;
-        align-items: center;
-      }
-      .profile-img {
-        flex: 0 0 100%;
-        max-width: 100%;
-        margin-bottom: 1rem;
-      }
-      .profile-img img {
-        height: 300px;
-      }
-      .about-text {
-        text-align: center;
-      }
-      .services-grid, .projects-grid, .education-grid {
-        grid-template-columns: 1fr;
-      }
-      .column-divider {
-        display: none;
-      }
-      .tech-carousel-inner {
-        animation: none;
-        display: flex;
-        justify-content: center;
-        flex-wrap: nowrap;
-      }
-      .tech-item {
-        flex: 0 0 60px;
-        width: 60px;
-        height: 60px;
-      }
-      .project-filter {
-        flex-wrap: wrap;
-        gap: 0.5rem;
-      }
-      .project-filter button {
-        padding: 0.4rem 0.8rem;
-        font-size: 0.9rem;
-      }
-    }
-    @media (min-width: 601px) and (max-width: 768px) {
-      .profile-img img {
-        height: 250px;
-      }
-    }
-    @media (max-width: 600px) {
-      .banner h1 {
-        font-size: 1.5rem;
-      }
-      .banner p {
-        font-size: 0.9rem;
-      }
-      .profile-img img {
-        height: 200px;
-      }
-      .tech-item {
-        flex: 0 0 50px;
-        width: 50px;
-        height: 50px;
-      }
-    }
-  </style>
-</head>
-<body>
-  <header class="banner">
-    <h1>Hi, I am <span class="name">Nana Kwesi Safo</span></h1>
-    <p>I'm a passionate Data Analyst and Backend Web Developer, <br>driving insights and building solutions for public health and development.</p>
-    <div class="social-links">
-      <a href="https://facebook.com" target="_blank" class="social-icon">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9 8h-3v4h3v12h5v-12h3.642l.358-4h-4v-1.667c0-.955.192-1.333 1.115-1.333h2.885v-5h-3.808c-3.596 0-5.192 1.583-5.192 4.615v3.385z"/></svg>
-      </a>
-      <a href="https://twitter.com" target="_blank" class="social-icon">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
-      </a>
-      <a href="https://github.com" target="_blank" class="social-icon">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
-      </a>
-      <a href="https://linkedin.com" target="_blank" class="social-icon">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4.98 3.5c0 1.381-1.11 2.5-2.48 2.5s-2.48-1.119-2.48-2.5c0-1.38 1.11-2.5 2.48-2.5s2.48 1.12 2.48 2.5zm.02 4.5h-5v16h5v-16zm7.982 0h-4.968v16h4.969v-8.399c0-4.67 6.029-5.052 6.029 0v8.399h4.988v-10.131c0-7.88-8.922-7.593-11.018-3.714v-2.155z"/></svg>
-      </a>
-    </div>
-  </header>
-  <section class="about">
-    <div class="about-header">
-      <h2>ABOUT ME<span class="about-bg">ABOUT ME</span></h2>
-    </div>
-    <div class="about-content">
-      <div class="profile-img">
-        <img src="assets/img/me.png" alt="Nana Kwesi Safo">
-      </div>
-      <div class="about-text">
-        <h3>Hi There! I'm Nana Kwesi</h3>
-        <div class="specialization">Data Analyst & Backend Web Developer</div>
-        <p>I'm a results-driven professional with over 3 years of experience in data transformation, KPI reporting, and dashboard design. Passionate about leveraging data analytics and web development to improve decision-making in public health and development contexts.</p>
-        <div class="info">
-          <p><span>Birthday:</span> January 15, 1990</p>
-          <p><span>Email:</span> nana.kwesi@example.com</p>
-          <p><span>Phone:</span> +233 24 949 3432</p>
-          <p><span>Languages:</span> English, Akan</p>
-          <p><span>Freelance:</span> Available</p>
+    <head>
+        <!-- Meta Tag -->
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <meta http-equiv="x-ua-compatible" content="ie=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <meta name="description" content="Nana Safo is vCard, Resume Template and Personal portfolio bootstrap 4 html template." />
+        <meta name="keywords" content="" />
+        <meta name="author" content="" />
+        <!-- Title Of Site -->
+        <title>Nana Kwesi Safo &ndash; Personal Portfolio Template</title>
+        <!-- Favicon -->
+        <link rel="shortcut icon" href="assets/images/favicon.ico" />
+
+        <!-- *********** CSS Files *********** -->
+        <!-- Bootstrap -->
+        <link rel="stylesheet" href="assets/css/bootstrap.min.css" />
+        <!-- Magnific Popup -->
+        <link rel="stylesheet" href="assets/css/magnific-popup.css" />
+        <!-- Font Awesome -->
+        <link rel="stylesheet" href="assets/css/font-awesome.min.css" />
+
+        <!-- Main Style CSS -->
+        <link rel="stylesheet" href="assets/css/style.css" />
+        <!-- Template Color -->
+        <link rel="stylesheet" href="assets/css/color/default.css" id="optional-color" />
+    </head>
+
+    <body id="home" class="template-index" data-spy="scroll" data-target="#scrollspy" data-offset="70">
+        <!-- Page Wrapper -->
+        <div id="page-wrapper" class="page-wrapper">
+            <!-- Header Section -->
+            <header id="header" class="site-header fixed-top">
+                <!-- Container -->
+                <div class="container">
+                    <!-- Row -->
+                    <div class="row align-items-center">
+                        <div class="col-xl-2 col-lg-2 col-md-2 col-sm-6 col-6">
+                            <!-- Logo -->
+                            <div class="logo navbar-brand p-0 m-0 w-100">
+                                <!-- Text Logo -->
+                                <a class="text-logo" href="index.htm">Nana Safo</a>
+                                <!-- End Text Logo -->
+                                <!-- Image Logo -->
+                                <!-- <a href="index.html" class="logo-img"><img class="img-fluid" src="assets/images/logo.png" alt="logo" title="Logo" /></a> -->
+                                <!-- End Image Logo -->
+                            </div>
+                            <!-- End Logo -->
+                        </div>
+                        <div class="col-xl-10 col-lg-10 col-md-10 col-sm-6 col-6">
+                            <!-- Main Menu -->
+                            <div id="navigation" class="navigation float-lg-right">
+                                <nav class="navbar navbar-expand-lg p-0">
+                                    <button class="menu-toggle menu-toggle-line d-lg-none" type="button"><span></span><span></span><span></span></button>
+                                    <div class="navigation-menu mobile-menu-hide" id="navbarMenu">
+                                        <a href="#" class="closeNav-btn d-lg-none clearfix" id="closeNav" title="Close"><span class="menu-close mr-2">Close</span><i class="fa fa-close" aria-hidden="true"></i></a>
+                                        <ul class="navbar-nav align-items-center justify-content-end w-100">
+                                            <li class="nav-item"><a data-scroll class="nav-link active" href="#home"><i class="fa fa-home"></i><span class="link-text">Home</span></a></li>
+                                            <li class="nav-item"><a data-scroll class="nav-link" href="#about"><i class="fa fa-user"></i><span class="link-text">About</span></a></li>
+                                            <li class="nav-item"><a data-scroll class="nav-link" href="#services"><i class="fa fa-rocket"></i><span class="link-text">Services</span></a></li>
+                                            <li class="nav-item"><a data-scroll class="nav-link" href="#portfolio"><i class="fa fa-briefcase"></i><span class="link-text">Portfolio</span></a></li>
+                                            <li class="nav-item"><a data-scroll class="nav-link" href="#blog"><i class="fa fa-pencil"></i><span class="link-text">Blog</span></a></li>
+                                            <li class="nav-item"><a data-scroll class="nav-link" href="#contact"><i class="fa fa-address-book"></i><span class="link-text">Contact</span></a></li>
+                                        </ul>
+                                    </div>
+                                </nav>
+                            </div>
+                            <!-- End Main Menu -->
+                        </div>
+                    </div>
+                    <!-- End Row -->
+                </div>
+                <!-- End Container -->
+            </header>
+            <!-- End Header Section -->
+
+            <!-- Main Wrapper -->
+            <main id="main" class="main-wrapper">
+                <!-- Banner Section -->
+                <section id="banner" class="banner-section header-bg-img d-flex align-items-center">
+                    <!-- Container -->
+                    <div class="container">
+                        <!-- Banner Inner -->
+                        <div class="banner-inner d-flex align-items-center justify-content-center">
+                            <!-- Banner Image -->
+                            <div class="banner-img mb-4 mb-lg-0">
+                                <img class="img-fluid center-picture" src="assets/images/profile.png" alt="Profile" width="700" height="700" />
+                            </div>
+                            <!-- End Banner Image -->
+                            <!-- Banner Text -->
+                            <div class="banner-text ml-lg-5">
+                                <h2>Hi There!</h2>
+                                <h3 class="d-sm-none d-block text-uppercase headline">I'M <b class="is-visible">Nana Safo</b></h3>
+                                <h3 class="d-sm-block d-none cd-headline clip text-uppercase">I'm
+                                    <span class="cd-words-wrapper">
+                                        <b class="is-visible">Nana Safo</b>
+                                        <b class="is-hidden">a Data Analyst</b>
+                                        <b class="is-hidden">a GIS Analyst</b>
+                                        <b class="is-hidden">a Backend WebDev</b>                       
+                                    </span>
+                                </h3>
+                                <p>I'm a passionate Data Analyst and Python Programmer, driving insights and building solutions for public health and development.</p>
+                                <div class="social-links d-flex flex-wrap">
+                                    <a href="https://github.com/safoisgod" data-toggle="tooltip" data-placement="top" data-original-title="Facebook"><i class="fa-brands fa-github"></i></a>
+                                    <a href="https://twitter.com/iamnanasafo" data-toggle="tooltip" data-placement="top" data-original-title="Twitter"><i class="fa-brands fa-x-twitter"></i></a>
+                                    <a href="https://instagram.com/iamnanasafo" data-toggle="tooltip" data-placement="top" data-original-title="Instagram"><i class="fa-brands fa-instagram"></i></a>
+                                    <a href="https://linkedin.com/in/iamnanasafo" data-toggle="tooltip" data-placement="top" data-original-title="Linkedin"><i class="fa-brands fa-linkedin-in"></i></a>
+                                </div>
+                                <div class="info-button">
+                                    <a href="#about" class="btn btn-secondary about-btn mr-sm-3"><span><i class="fa fa-user mr-2"></i>More about me</span></a>
+                                    <a href="#portfolio" class="btn btn-primary portfolio-btn mb-0"><span><i class="fa fa-rocket mr-2"></i>My portfolio</span></a>
+                                </div>
+                            </div>
+                            <!-- End Banner Text -->
+                        </div>
+                        <!-- Banner Inner -->
+                        <!-- Bottom Scroll Arrow -->
+                        <div class="scroll-down-arrow smooth-scroll-down about-btn d-none d-lg-block"></div>
+                        <!-- End Bottom Scroll Arrow -->
+                    </div>
+                    <!-- End Container -->
+                </section>
+                <!-- End Banner Section -->
+
+                <!-- About Section -->
+                <section id="about" class="about section-spacing">
+                    <!-- Container -->
+                    <div class="container">
+                        <!-- Section Title -->
+                        <div class="section-title">
+                            <h1>About <span>me</span></h1>
+                            <span class="separator"></span>
+                        </div>
+                        <!-- End Section Title -->
+                        <!-- Info Content Block -->
+                        <div class="content-block">
+                            <!-- Row -->
+                            <div class="row">
+                                <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">
+                                    <div class="about-text">
+                                        <h4>Hello! I'M <span>Nana Safo</span></h4>
+                                        <p>I'm a results-driven professional with 3+ years of experience in data transformation, KPI reporting, and geospatial analysis. I use data analytics and GIS tools to deliver actionable insights for various development projects.</p>
+                                        <a class="mb-4 mb-lg-0 btn btn-primary" href="#"><span><i class="fa fa-download mr-2"></i>Download my cv</span></a>
+                                    </div>
+                                </div>
+                                <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">
+                                    <div class="about-details clearfix">
+                                        <ul class="float-left w-50 pr-2">
+                                            <li class="mb-1"><span>Name :</span> <span>Nana Safo</span></li>
+                                            <li class="mb-1"><span>Address :</span> <span>Accra, Ghana</span></li>
+                                            <li class="mb-1"><span>Experience :</span> <span>3+ years</span></li>
+                                            <li class="mb-1"><span>Freelance :</span> <span>Available</span></li>
+                                        </ul>
+                                        <ul class="float-right w-50 pl-2">
+                                            <li class="mb-1"><span>Phone :</span> <span><a href="tel:+233543550766">(+233) 54 355 0766</a></span></li>
+                                            <li class="mb-1"><span>E-mail :</span> <span><a href="mailto:iamnanasafo@gmail.com">iamnanasafo@gmail.com</a></span></li>
+                                            <li class="mb-1"><span>Language :</span> <span> English, Twi</span></li>
+                                            <li class="mb-1"><span>Website :</span> <span><a href="#">www.iamnanasafo.com</a></span></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- End Row -->
+                        </div>
+                        <!-- End Info Content Block -->
+                        <!-- Experience Education Content Block -->
+                        <div class="content-block">
+                            <!-- Section Sub Title -->
+                            <h3 class="section-subtitle text-center text-uppercase mb-5">Experience &amp; Education</h3>
+                            <!-- End Section Sub Title -->
+                            <!-- Row -->
+                            <div class="row">
+                                <!-- Education -->
+                                <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">
+                                    <h4 class="education-title block-title text-center text-uppercase mb-4">Education</h4>
+                                    <div class="education pl-4">
+                                        <div class="education-box mb-4">
+                                            <h5 class="box-title">Geomatic Engineering <span style="font-size: 10px;">(BSc)</span></h5>
+                                            <div class="item-details mb-2 mb-sm-1">
+                                                <span class="university d-inline-block mr-3"><i class="fa fa-book mr-2"></i>KNUST, Ghana</span>
+                                                <span class="year d-inline-block"><i class="fa-classic fa-regular fa-calendar-days mr-2"></i>Aug 2018 - Aug 2022</span>
+                                            </div>
+                                            <p class="box-description">Comprehensive training in GIS, remote sensing, land surveying, and spatial data analysis, with applied training in geospatial technologies.</p>
+                                        </div>
+                                        <div class="education-box mb-4">
+                                            <h5 class="box-title">Data Analytics</h5>
+                                            <div class="item-details mb-2 mb-sm-1">
+                                                <span class="university d-inline-block mr-3"><i class="fa fa-book mr-2"></i>ALX Africa</span>
+                                                <span class="year d-inline-block"><i class="fa-classic fa-regular fa-calendar-days mr-2"></i>Mar 2024 - Aug 2024</span>
+                                            </div>
+                                            <p class="box-description">Hands-on training in data analysis, visualization, PowerBi, SQL, and Excel, with practical projects focused on real-world business insights.</p>
+                                        </div>
+                                        <div class="education-box mb-4 mb-lg-0">
+                                            <h5 class="box-title">Backend Web Development</h5>
+                                            <div class="item-details mb-2 mb-sm-1">
+                                                <span class="university d-inline-block mr-3"><i class="fa fa-book mr-2"></i>ALX Africa</span>
+                                                <span class="year d-inline-block"><i class="fa-classic fa-regular fa-calendar-days mr-2"></i>Mar 2025 - Aug 2025</span>
+                                            </div>
+                                            <p class="box-description">6-month program focused on Python, Django, REST APIs, SQL, and deploying scalable web applications through hands-on projects</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- End Education -->
+                                <!-- Experience -->
+                                <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">
+                                    <h4 class="experince-title block-title text-center text-uppercase mb-4">Experience</h4>
+                                    <div class="experince pl-4">
+                                        <div class="experince-box mb-4">
+                                            <h5 class="box-title">Data Analyst/M&E Officer</h5>
+                                            <div class="item-details mb-2 mb-sm-1">
+                                                <span class="university d-inline-block mr-3"><i class="fa fa-book mr-2"></i>Afarinick Company Limited, Ghana</span>
+                                                <span class="year d-inline-block"><i class="fa-classic fa-regular fa-calendar-days mr-2"></i>April 2023 <span class="badge badge-success current ml-2">Present</span></span>
+                                            </div>
+                                            <p class="box-description">Monitored, cleaned, and analyzed data, built reports & dashboards, and supported decisions to improve agro-industrial operations.</p>
+                                        </div>
+                                        <div class="experince-box mb-4">
+                                            <h5 class="box-title">Data Analyst</h5>
+                                            <div class="item-details mb-2 mb-sm-1">
+                                                <span class="university d-inline-block mr-3"><i class="fa fa-book mr-2"></i>Freelancer</span>
+                                                <span class="year d-inline-block"><i class="fa-classic fa-regular fa-calendar-days mr-2"></i>Nov 2021 <span class="badge badge-success current ml-2">Present</span></span>
+                                            </div>
+                                            <p class="box-description">Cleaned and analyzed data, built reports & dashboards for individuals, NGOs, and small businesses to support data-driven decisions.</p>
+                                        </div>
+                                        <div class="experince-box mb-lg-0">
+                                            <h5 class="box-title">Engineering Surveyor</h5>
+                                            <div class="item-details mb-2 mb-sm-1">
+                                                <span class="university d-inline-block mr-3"><i class="fa fa-book mr-2"></i>AESL, Ghana</span>
+                                                <span class="year d-inline-block"><i class="fa-classic fa-regular fa-calendar-days mr-2"></i>Jan 2023 - Nov 2023</span>
+                                            </div>
+                                            <p class="box-description">Conducted land and engineering surveys for government projects, ensuring accurate measurements and data for planning and building.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- End Experience -->
+                            </div>
+                            <!-- End Row -->
+                        </div>
+                        <!-- End Experience Education Content Block -->
+                        <!-- Skill Content Block -->
+                        <div class="content-block skills">
+                            <h4 class="block-title text-center text-uppercase mb-4 pb-2">Skills</h4>
+                            <!-- Skill Row -->
+                            <div class="row">
+                                <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">
+                                    <div class="skill-item">
+                                        <p class="skill-name">Python (Pandas, Numpy, Matplotlib)</p>
+                                        <div id="python"></div>
+                                    </div>
+                                    <div class="skill-item mt-4">
+                                        <p class="skill-name">SQL, BigQuery & MySQL Database Management</p>
+                                        <div id="sql"></div>
+                                    </div>
+                                    <div class="skill-item mt-4">
+                                        <p class="skill-name">Ms Excel (Advanced Functions & PivotTables)</p>
+                                        <div id="excel"></div>
+                                    </div>
+                                    <div class="skill-item mt-4">
+                                        <p class="skill-name">Power BI (Data Visualization)</p>
+                                        <div id="powerbi"></div>
+                                    </div>
+                                </div>
+                                <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">
+                                    <div class="skill-item mt-4 mt-lg-0">
+                                        <p class="skill-name">GIS Tools (ArcGIS, QGIS)</p>
+                                        <div id="gis"></div>
+                                    </div>
+                                    <div class="skill-item mt-4">
+                                        <p class="skill-name">Frontend Web Development (HTML, CSS)</p>
+                                        <div id="frontend"></div>
+                                    </div>
+                                    <div class="skill-item mt-4">
+                                        <p class="skill-name">Backend Web Development (Python,  Django, Node.js)</p>
+                                        <div id="backend"></div>
+                                    </div>
+                                    <div class="skill-item mt-4">
+                                        <p class="skill-name">Monitoring & Evaluation (M&E) Reporting</p>
+                                        <div id="mne"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- End Skill Row -->	
+                        </div>
+                        <!-- End Skill Content Block -->
+                        <!-- Counters Content Block -->
+                        <div class="content-block counter-number">
+                            <!-- Row -->
+                            <div class="row row-items">
+                                <div class="col-xl-3 col-lg-3 col-md-6 col-sm-6 col-12 row-item">
+                                    <div class="counter-box">
+                                        <h3 class="counter">15</h3>
+                                        <h5 class="text-uppercase">Projects Completed</h5>
+                                    </div>
+                                </div>
+                                <div class="col-xl-3 col-lg-3 col-md-6 col-sm-6 col-12 row-item">
+                                    <div class="counter-box">
+                                        <h3 class="counter">6</h3>
+                                        <h5 class="text-uppercase">Clients & Organizations</h5>
+                                    </div>
+                                </div>
+                                <div class="col-xl-3 col-lg-3 col-md-6 col-sm-6 col-12 row-item">
+                                    <div class="counter-box">
+                                        <h3 class="counter">4</h3>
+                                        <h5 class="text-uppercase">Years of Experience</h5>
+                                    </div>
+                                </div>
+                                <div class="col-xl-3 col-lg-3 col-md-6 col-sm-6 col-12 row-item">
+                                    <div class="counter-box">
+                                        <h3 class="counter">12</h3>
+                                        <h5 class="text-uppercase">Dashboards & Reports</h5>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- End Row -->
+                        </div>
+                        <!-- End Counters Content Block -->
+                    </div>
+                    <!-- End Container -->
+                </section>
+                <!-- End About Section -->
+
+                <!-- Service Section -->
+                <section id="services" class="service gray-bg section-spacing">
+                    <!-- Container -->
+                    <div class="container">
+                        <!-- Section Title -->
+                        <div class="section-title">
+                            <h1>My <span>Services</span></h1>
+                            <span class="separator"></span>
+                        </div>
+                        <!-- End Section Title -->
+
+                        <!-- Service Content Block -->
+                        <div class="content-block content-service-block">
+                            <!-- Service Row -->
+                            <div class="row row-items">
+                                <!-- Service One -->
+                                <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 col-12 row-item">
+                                    <div class="card-body text-center">
+                                        <div class="card-icon"><i class="fa-solid fa-chart-line"></i></div>
+                                        <div class="card-title">
+                                            <h4 class="service-title">Data Analysis</h4>
+                                        </div>
+                                        <div class="card-info">
+                                            <p class="service-desc">Clean, process, and analyze data using Python, SQL, and Excel to uncover insights.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Service Two -->
+                                <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 col-12 row-item">
+                                    <div class="card-body text-center">
+                                        <div class="card-icon"><i class="fa-solid fa-map-location-dot"></i></div>
+                                        <div class="card-title">
+                                            <h4 class="service-title">GIS & Mapping</h4>
+                                        </div>
+                                        <div class="card-info">
+                                            <p class="service-desc">Perform spatial analysis, mapping, and visualization using ArcGIS Pro and QGIS.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Service Three -->
+                                <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 col-12 row-item">
+                                    <div class="card-body text-center">
+                                        <div class="card-icon"><i class="fa-solid fa-database"></i></div>
+                                        <div class="card-title">
+                                            <h4 class="service-title">Dashboard Development</h4>
+                                        </div>
+                                        <div class="card-info">
+                                            <p class="service-desc">Design dynamic dashboards with Power BI, to track key metrics.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Service Four -->
+                                <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 col-12 row-item">
+                                    <div class="card-body text-center">
+                                        <div class="card-icon"><i class="fa-solid fa-code"></i></div>
+                                        <div class="card-title">
+                                            <h4 class="service-title">Backend Development</h4>
+                                        </div>
+                                        <div class="card-info">
+                                            <p class="service-desc">Develop backend systems using Python, Django, and MySQL for scalable web app.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Service Five -->
+                                <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 col-12 row-item">
+                                    <div class="card-body text-center">
+                                        <div class="card-icon"><i class="fa-solid fa-magnifying-glass-chart"></i></div>
+                                        <div class="card-title">
+                                            <h4 class="service-title">Monitoring & Evaluation</h4>
+                                        </div>
+                                        <div class="card-info">
+                                            <p class="service-desc">Design and analyze M&E systems to track project outcomes and deliver reports.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Service Six -->
+                                <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 col-12 row-item">
+                                    <div class="card-body text-center">
+                                        <div class="card-icon"><i class="fa-solid fa-gears"></i></div>
+                                        <div class="card-title">
+                                            <h4 class="service-title">Custom Data Solutions</h4>
+                                        </div>
+                                        <div class="card-info">
+                                            <p class="service-desc">Build custom automations, tools, and scripts tailored to solve specific clients.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- End Service Row -->
+                        </div>
+
+
+                        <!-- End Service Content Block -->
+                    <template>
+                        <!-- Testimonial Content Block -->
+                        <div id="testimonials" class="content-block testimonials-wrap">
+                            <!-- Section Sub Title -->
+                            <h3 class="section-subtitle text-center text-uppercase mb-4">Testimonial</h3>
+                            <!-- Section Sub Title -->
+                            <!-- Row -->
+                            <div class="row">
+                                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                                    <!-- Carousel Slider -->
+                                    <div id="carouselTestimonial" class="customers-testimonial carousel slide" data-ride="carousel">
+                                        <!-- Carousel Items -->
+                                        <div class="carousel-inner">
+                                            <!-- Testimonial One -->
+                                            <div class="carousel-item text-center item active">
+                                                <img class="img-fluid img-circle" src="assets/images/testimonial/testimonial-1.jpg" alt="Testimonial 1" width="100" height="100" />
+                                                <p>There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything.</p>
+                                                <div class="name text-uppercase">Anna Sthesia</div>
+                                            </div>
+                                            <!-- End Testimonial One -->
+                                            <!-- Testimonial Two -->
+                                            <div class="carousel-item text-center item">
+                                                <img class="img-fluid img-circle" src="assets/images/testimonial/testimonial-2.jpg" alt="Testimonial 2" width="100" height="100" />
+                                                <p>There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything.</p>
+                                                <div class="name text-uppercase">Buster Hyman</div>
+                                            </div>
+                                            <!-- End Testimonial Two -->
+                                            <!-- Testimonial Three -->
+                                            <div class="carousel-item text-center item">
+                                                <img class="img-fluid img-circle" src="assets/images/testimonial/testimonial-3.jpg" alt="Testimonial 3" width="100" height="100" />
+                                                <p>There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything.</p>
+                                                <div class="name text-uppercase">Nana Safo Anna</div>
+                                            </div>
+                                            <!-- End Testimonial Three -->
+                                        </div>
+                                        <!-- End Carousel Items -->
+                                        <!-- Carousel Arrow -->
+                                        <ol class="carousel-indicators">
+                                            <li data-target="#carouselTestimonial" data-slide-to="0" class="active"></li>
+                                            <li data-target="#carouselTestimonial" data-slide-to="1"></li>
+                                            <li data-target="#carouselTestimonial" data-slide-to="2"></li>
+                                        </ol>
+                                        <!-- End Carousel Arrow -->
+                                        <!-- Carousel Dots -->
+                                        <a class="carousel-control-prev btn p-0 m-0" href="#carouselTestimonial" role="button" data-slide="prev"><i class="fa fa-angle-left carousel-controls" aria-hidden="true"></i></a>
+                                        <a class="carousel-control-next btn p-0 m-0" href="#carouselTestimonial" role="button" data-slide="next"><i class="fa fa-angle-right carousel-controls" aria-hidden="true"></i></a>
+                                        <!-- End Carousel Dots -->
+                                    </div>
+                                    <!-- End Carousel Slider -->
+                                </div>
+                            </div>
+                            <!-- End Row -->
+                        </div>                       
+                        <!-- End Testimonial Content Block -->
+                    </div>
+                </template>
+                    <!-- End Container -->
+                </section>
+                <!-- End Service Section -->
+
+                
+
+                <!-- Portfolio Section -->
+                <section id="portfolio" class="portfolio section-spacing">
+                    <!-- Container -->
+                    <div class="container">
+                        <!-- Section Title -->
+                        <div class="section-title">
+                            <h1>My <span>Portfolio</span></h1>
+                            <span class="separator"></span>
+                        </div>
+                        <!-- End Section Title -->
+                        <!-- Row -->
+                        <div class="row">
+                            <div class="col-12 d-flex justify-content-center mb-4">
+                                <!-- Portfolio Filter -->
+                                <ul id="portfolio-flters">
+                                    <li class="btn filter-active" data-filter="*">All Work</li>
+                                    <li class="btn" data-filter=".filter-powerbi">PowerBI</li>
+                                    <li class="btn" data-filter=".filter-sql">SQL</li>
+                                    <li class="btn" data-filter=".filter-python">Python</li>
+                                    <li class="btn" data-filter=".filter-excel">Excel</li>
+                                    <li class="btn" data-filter=".filter-gis">GIS</li>
+                                </ul>
+                                <!-- End Portfolio Filter -->
+                            </div>
+                        </div>
+                        <!-- End Row -->
+                        <!-- Row -->
+                        <div class="row row-items portfolio-container project-gallery-item">
+                            <!-- Portfolio Nine: Mobile Sales Dashboard -->
+                            <div class="col-xl-4 col-lg-4 col-md-6 col-sm-6 col-12 row-item portfolio-item filter-powerbi">
+                                <div class="portfolio-wrap">
+                                    <img src="assets/images/portfolio/portfolio-9/portfolio-9-1.png" class="img-fluid" alt="Portfolio 9" width="1000" height="800" />
+                                    <div class="portfolio-info d-flex flex-column align-items-center justify-content-center">
+                                        <div class="portfolio-inner-info">
+                                            <h4>Mobile Sales Dashboard</h4>
+                                            <p>PowerBI</p>
+                                            <div class="portfolio-links d-flex flex-row align-items-center justify-content-center">
+                                                <a class="fancylight gallery-popup-btn" data-fancybox-group="light" href="assets/images/portfolio/portfolio-9/portfolio-9-1.png"><i class="fa-classic fa-regular fa-image"></i></a>
+                                                <a class="portfolio-detail-popup" href="#portfolio-details-9"><i class="fa fa-link"></i></a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Portfolio Details Popup -->
+                                <div id="portfolio-details-9" class="container portfolio-details mfp-hide">
+                                    <h2 class="popup-detail-title">Mobile Sales Dashboard</h2>
+                                    <div class="row">
+                                        <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12 mb-2 mb-lg-0">
+                                            <!-- Carousel Slider -->
+                                            <div id="carouselPortfolio2" class="portfolio-details-carousel carousel slide" data-ride="carousel">
+                                                <!-- Carousel Items -->
+                                                <div class="carousel-inner">
+                                                    <!-- Portfolio One -->
+                                                    <div class="carousel-item text-center item active"><img src="assets/images/portfolio/portfolio-9/portfolio-9-1.png" class="img-fluid" alt="Portfolio 9" width="1000" height="800" /></div>
+                                                    <!-- End Portfolio One -->
+                                                    <!-- Portfolio Two -->
+                                                    <div class="carousel-item text-center item"><img src="assets/images/portfolio/portfolio-9/portfolio-9-2.png" class="img-fluid" alt="Portfolio 2" width="1000" height="800" /></div>
+                                                    <!-- End Portfolio Two -->
+                                                    <!-- Portfolio Three -->
+                                                    <div class="carousel-item text-center item"><img src="assets/images/portfolio/portfolio-9/portfolio-9-3.png" class="img-fluid" alt="Portfolio 3" width="1000" height="800" /></div>
+                                                    <!-- End Portfolio Three -->
+                                                     <!-- Portfolio Four -->
+                                                    <div class="carousel-item text-center item"><img src="assets/images/portfolio/portfolio-9/portfolio-9-4.png" class="img-fluid" alt="Portfolio 3" width="1000" height="800" /></div>
+                                                    <!-- End Portfolio Four -->
+                                                </div>
+                                                <!-- End Carousel Items -->
+                                                <!-- Carousel Arrow -->
+                                                <ol class="carousel-indicators">
+                                                    <li data-target="#carouselPortfolio2" data-slide-to="0" class="active"></li>
+                                                    <li data-target="#carouselPortfolio2" data-slide-to="1"></li>
+                                                    <li data-target="#carouselPortfolio2" data-slide-to="2"></li>
+                                                    <li data-target="#carouselPortfolio2" data-slide-to="3"></li>
+                                                </ol>
+                                                <!-- End Carousel Arrow -->
+                                                <!-- Carousel Dots -->
+                                                <a class="carousel-control-prev btn p-0 m-0" href="#carouselPortfolio2" role="button" data-slide="prev"><i class="fa fa-angle-left carousel-controls" aria-hidden="true"></i></a>
+                                                <a class="carousel-control-next btn p-0 m-0" href="#carouselPortfolio2" role="button" data-slide="next"><i class="fa fa-angle-right carousel-controls" aria-hidden="true"></i></a>
+                                                <!-- End Carousel Dots -->
+                                            </div>
+                                            <!-- End Carousel Slider -->
+                                        </div>
+                                        <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12 portfolio-content">
+                                            <h4 class="">Project Info:</h4>
+                                            <p>A dynamic PowerBI dashboard optimized for mobile devices, providing real-time insights into sales performance for quick decision-making.</p>
+                                            <h4 class="mt-4">Project Details:</h4>
+                                            <ul>
+                                                <li class="mb-1"><strong>Client</strong>: Onyx Data</li>
+                                                <li class="mb-1"><strong>Category</strong>: Data Visualization</li>
+                                                <li class="mb-1"><strong>Technologies</strong>: PowerBI, DAX, SQL</li>
+                                                <li class="mb-1"><strong>Project date</strong>: May 2025</li>
+                                                <li class="mb-1"><strong>Project URL</strong>: <a href="#">www.example.com</a></li>
+                                            </ul>
+                                            <ul class="d-flex flex-row align-items-center text-center">
+                                                <li class="block-title"><strong class="font-14 parent-color pr-2">Share: </strong></li>
+                                                <li class="mr-3"><a href="#" data-toggle="tooltip" data-placement="top" data-original-title="Facebook"><i class="fa-brands fa-facebook-f"></i></a></li>
+                                                <li class="mr-3"><a href="#" data-toggle="tooltip" data-placement="top" data-original-title="Twitter"><i class="fa-brands fa-x-twitter"></i></a></li>
+                                                <li class="mr-3"><a href="#" data-toggle="tooltip" data-placement="top" data-original-title="Google plus"><i class="fa-brands fa-google-plus-g"></i></a></li>
+                                                <li class="mr-3"><a href="#" data-toggle="tooltip" data-placement="top" data-original-title="Instagram"><i class="fa-brands fa-instagram"></i></a></li>
+                                                <li class="mr-3"><a href="#" data-toggle="tooltip" data-placement="top" data-original-title="Linkedin"><i class="fa-brands fa-linkedin-in"></i></a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- End Portfolio Details Popup -->
+                            </div>
+                            <!-- End Portfolio Nine -->
+                            <!-- Portfolio Eight: Data Cleaning - LAPD Crime Data 2020 to Date -->
+                            <div class="col-xl-4 col-lg-4 col-md-6 col-sm-6 col-12 row-item portfolio-item filter-sql">
+                                <div class="portfolio-wrap">
+                                    <img src="assets/images/portfolio/portfolio-8/portfolio-8-1.png" class="img-fluid" alt="Portfolio 8" width="1000" height="800" />
+                                    <div class="portfolio-info d-flex flex-column align-items-center justify-content-center">
+                                        <div class="portfolio-inner-info">
+                                            <h4>Data Cleaning - LAPD Crime Data 2020 to Date</h4>
+                                            <p>SQL</p>
+                                            <div class="portfolio-links d-flex flex-row align-items-center justify-content-center">
+                                                <a class="fancylight gallery-popup-btn" data-fancybox-group="light" href="assets/images/portfolio/portfolio-8/portfolio-8-1.png"><i class="fa-classic fa-regular fa-image"></i></a>
+                                                <a class="portfolio-detail-popup" href="#portfolio-details-8"><i class="fa fa-link"></i></a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Portfolio Details Popup -->
+                                <div id="portfolio-details-8" class="container portfolio-details mfp-hide">
+                                    <h2 class="popup-detail-title">Data Cleaning - LAPD Crime Data 2020 to Date</h2>
+                                    <div class="row">
+                                        <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12 mb-4 mb-lg-0">
+                                            <img src="assets/images/portfolio/portfolio-8/portfolio-8-1.png" class="img-fluid" alt="Portfolio 8" width="1000" height="800" />
+                                        </div>
+                                        <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12 portfolio-content">
+                                            <h4 class="">Project Info:</h4>
+                                            <p>A SQL-based project to clean and standardize LAPD crime data from 2020 to present, ensuring accuracy for analysis and reporting.</p>
+                                            <h4 class="mt-4">Project Details:</h4>
+                                            <ul>
+                                                <li class="mb-1"><strong>Client</strong>: Personal Project</li>
+                                                <li class="mb-1"><strong>Category</strong>: Data Processing</li>
+                                                <li class="mb-1"><strong>Technologies</strong>: SQL, PostgreSQL, Python</li>
+                                                <li class="mb-1"><strong>Project date</strong>: May 2025</li>
+                                                <li class="mb-1"><strong>Project URL</strong>: <a href="#">www.example.com</a></li>
+                                            </ul>
+                                            <ul class="d-flex flex-row align-items-center text-center">
+                                                <li class="block-title"><strong class="font-14 parent-color pr-2">Share: </strong></li>
+                                                <li class="mr-3"><a href="#" data-toggle="tooltip" data-placement="top" data-original-title="Facebook"><i class="fa-brands fa-facebook-f"></i></a></li>
+                                                <li class="mr-3"><a href="#" data-toggle="tooltip" data-placement="top" data-original-title="Twitter"><i class="fa-brands fa-x-twitter"></i></a></li>
+                                                <li class="mr-3"><a href="#" data-toggle="tooltip" data-placement="top" data-original-title="Google plus"><i class="fa-brands fa-google-plus-g"></i></a></li>
+                                                <li class="mr-3"><a href="#" data-toggle="tooltip" data-placement="top" data-original-title="Instagram"><i class="fa-brands fa-instagram"></i></a></li>
+                                                <li class="mr-3"><a href="#" data-toggle="tooltip" data-placement="top" data-original-title="Linkedin"><i class="fa-brands fa-linkedin-in"></i></a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- End Portfolio Details Popup -->
+                            </div>
+                            <!-- End Portfolio Eight -->
+                            <!-- Portfolio Seven: Coffee Shop Dashboard -->
+                            <div class="col-xl-4 col-lg-4 col-md-6 col-sm-6 col-12 row-item portfolio-item filter-powerbi">
+                                <div class="portfolio-wrap">
+                                    <img src="assets/images/portfolio/portfolio-7/portfolio-7-1.png" class="img-fluid" alt="Portfolio 7" width="1000" height="800" />
+                                    <div class="portfolio-info d-flex flex-column align-items-center justify-content-center">
+                                        <div class="portfolio-inner-info">
+                                            <h4>Coffee Shop Dashboard</h4>
+                                            <p>PowerBI</p>
+                                            <div class="portfolio-links d-flex flex-row align-items-center justify-content-center">
+                                                <a class="fancylight gallery-popup-btn" data-fancybox-group="light" href="assets/images/portfolio/portfolio-7/portfolio-7-1.png"><i class="fa-classic fa-regular fa-image"></i></a>
+                                                <a class="portfolio-detail-popup" href="#portfolio-details-7"><i class="fa fa-link"></i></a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Portfolio Details Popup -->
+                                <div id="portfolio-details-7" class="container portfolio-details mfp-hide">
+                                    <h2 class="popup-detail-title">Coffee Shop Dashboard</h2>
+                                    <div class="row">
+                                        <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12 mb-2 mb-lg-0">
+                                            <!-- Carousel Slider -->
+                                            <div id="carouselPortfolio2" class="portfolio-details-carousel carousel slide" data-ride="carousel">
+                                                <!-- Carousel Items -->
+                                                <div class="carousel-inner">
+                                                    <!-- Portfolio One -->
+                                                    <div class="carousel-item text-center item active"><img src="assets/images/portfolio/portfolio-7/portfolio-7-1.png" class="img-fluid" alt="Portfolio 9" width="1000" height="800" /></div>
+                                                    <!-- End Portfolio One -->
+                                                    <!-- Portfolio Two -->
+                                                    <div class="carousel-item text-center item"><img src="assets/images/portfolio/portfolio-7/portfolio-7-2.png" class="img-fluid" alt="Portfolio 2" width="1000" height="800" /></div>
+                                                    <!-- End Portfolio Two -->
+                                                    
+                                                </div>
+                                                <!-- End Carousel Items -->
+                                                <!-- Carousel Arrow -->
+                                                <ol class="carousel-indicators">
+                                                    <li data-target="#carouselPortfolio2" data-slide-to="0" class="active"></li>
+                                                    <li data-target="#carouselPortfolio2" data-slide-to="1"></li>
+                                                </ol>
+                                                <!-- End Carousel Arrow -->
+                                                <!-- Carousel Dots -->
+                                                <a class="carousel-control-prev btn p-0 m-0" href="#carouselPortfolio2" role="button" data-slide="prev"><i class="fa fa-angle-left carousel-controls" aria-hidden="true"></i></a>
+                                                <a class="carousel-control-next btn p-0 m-0" href="#carouselPortfolio2" role="button" data-slide="next"><i class="fa fa-angle-right carousel-controls" aria-hidden="true"></i></a>
+                                                <!-- End Carousel Dots -->
+                                            </div>
+                                            <!-- End Carousel Slider -->
+                                        </div>
+                                        <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12 portfolio-content">
+                                            <h4 class="">Project Info:</h4>
+                                            <p>An interactive PowerBI dashboard for a coffee shop chain, visualizing sales, inventory, and customer trends to drive business decisions.</p>
+                                            <h4 class="mt-4">Project Details:</h4>
+                                            <ul>
+                                                <li class="mb-1"><strong>Client</strong>: Coffee Chain</li>
+                                                <li class="mb-1"><strong>Category</strong>: Data Visualization</li>
+                                                <li class="mb-1"><strong>Technologies</strong>: PowerBI, DAX, SQL</li>
+                                                <li class="mb-1"><strong>Project date</strong>: April 2025</li>
+                                                <li class="mb-1"><strong>Project URL</strong>: <a href="#">www.example.com</a></li>
+                                            </ul>
+                                            <ul class="d-flex flex-row align-items-center text-center">
+                                                <li class="block-title"><strong class="font-14 parent-color pr-2">Share: </strong></li>
+                                                <li class="mr-3"><a href="#" data-toggle="tooltip" data-placement="top" data-original-title="Facebook"><i class="fa-brands fa-facebook-f"></i></a></li>
+                                                <li class="mr-3"><a href="#" data-toggle="tooltip" data-placement="top" data-original-title="Twitter"><i class="fa-brands fa-x-twitter"></i></a></li>
+                                                <li class="mr-3"><a href="#" data-toggle="tooltip" data-placement="top" data-original-title="Google plus"><i class="fa-brands fa-google-plus-g"></i></a></li>
+                                                <li class="mr-3"><a href="#" data-toggle="tooltip" data-placement="top" data-original-title="Instagram"><i class="fa-brands fa-instagram"></i></a></li>
+                                                <li class="mr-3"><a href="#" data-toggle="tooltip" data-placement="top" data-original-title="Linkedin"><i class="fa-brands fa-linkedin-in"></i></a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- End Portfolio Details Popup -->
+                            </div>
+                            <!-- End Portfolio Seven -->
+                            <!-- Portfolio Six: Exploratory Data Analysis - World Malaria -->
+                            <div class="col-xl-4 col-lg-4 col-md-6 col-sm-6 col-12 row-item portfolio-item filter-python">
+                                <div class="portfolio-wrap">
+                                    <img src="assets/images/portfolio/portfolio-6/portfolio-6-1.png" class="img-fluid" alt="Portfolio 6" width="1000" height="800" />
+                                    <div class="portfolio-info d-flex flex-column align-items-center justify-content-center">
+                                        <div class="portfolio-inner-info">
+                                            <h4>Exploratory Data Analysis - World Malaria</h4>
+                                            <p>Python</p>
+                                            <div class="portfolio-links d-flex flex-row align-items-center justify-content-center">
+                                                <a class="fancylight gallery-popup-btn" data-fancybox-group="light" href="assets/images/portfolio/portfolio-6/portfolio-6-1.png"><i class="fa-classic fa-regular fa-image"></i></a>
+                                                <a class="portfolio-detail-popup" href="#portfolio-details-6"><i class="fa fa-link"></i></a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Portfolio Details Popup -->
+                                <div id="portfolio-details-6" class="container portfolio-details mfp-hide">
+                                    <h2 class="popup-detail-title">Exploratory Data Analysis - World Malaria</h2>
+                                    <div class="row">
+                                        <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12 mb-4 mb-lg-0">
+                                            <img src="assets/images/portfolio/portfolio-6/portfolio-6-1.png" class="img-fluid" alt="Portfolio 6" width="1000" height="800" />
+                                        </div>
+                                        <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12 portfolio-content">
+                                            <h4 class="">Project Info:</h4>
+                                            <p>A Python-based exploratory analysis of global malaria data, uncovering patterns to support public health research and initiatives.</p>
+                                            <h4 class="mt-4">Project Details:</h4>
+                                            <ul>
+                                                <li class="mb-1"><strong>Client</strong>: Personal Project</li>
+                                                <li class="mb-1"><strong>Category</strong>: Data Analysis</li>
+                                                <li class="mb-1"><strong>Technologies</strong>: Python, Pandas, Matplotlib, Seaborn</li>
+                                                <li class="mb-1"><strong>Project date</strong>: July 2024</li>
+                                                <li class="mb-1"><strong>Project URL</strong>: <a href="#">www.example.com</a></li>
+                                            </ul>
+                                            <ul class="d-flex flex-row align-items-center text-center">
+                                                <li class="block-title"><strong class="font-14 parent-color pr-2">Share: </strong></li>
+                                                <li class="mr-3"><a href="#" data-toggle="tooltip" data-placement="top" data-original-title="Facebook"><i class="fa-brands fa-facebook-f"></i></a></li>
+                                                <li class="mr-3"><a href="#" data-toggle="tooltip" data-placement="top" data-original-title="Twitter"><i class="fa-brands fa-x-twitter"></i></a></li>
+                                                <li class="mr-3"><a href="#" data-toggle="tooltip" data-placement="top" data-original-title="Google plus"><i class="fa-brands fa-google-plus-g"></i></a></li>
+                                                <li class="mr-3"><a href="#" data-toggle="tooltip" data-placement="top" data-original-title="Instagram"><i class="fa-brands fa-instagram"></i></a></li>
+                                                <li class="mr-3"><a href="#" data-toggle="tooltip" data-placement="top" data-original-title="Linkedin"><i class="fa-brands fa-linkedin-in"></i></a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- End Portfolio Details Popup -->
+                            </div>
+                            <!-- End Portfolio Six -->
+                            <!-- Portfolio Five: Automated Traversing Computation -->
+                            <div class="col-xl-4 col-lg-4 col-md-6 col-sm-6 col-12 row-item portfolio-item filter-excel filter-gis">
+                                <div class="portfolio-wrap">
+                                    <img src="assets/images/portfolio/portfolio-5/portfolio-5-1.png" class="img-fluid" alt="Portfolio 5" width="1000" height="800" />
+                                    <div class="portfolio-info d-flex flex-column align-items-center justify-content-center">
+                                        <div class="portfolio-inner-info">
+                                            <h4>Automated Traversing Computation</h4>
+                                            <p>Excel</p>
+                                            <div class="portfolio-links d-flex flex-row align-items-center justify-content-center">
+                                                <a class="magnific-soundcloud" href="assets/images/portfolio/portfolio-5/portfolio-5-1.png"><i class="fa fa-music"></i></a>
+                                                <a class="portfolio-detail-popup" href="#portfolio-details-5"><i class="fa fa-link"></i></a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Portfolio Details Popup -->
+                                <div id="portfolio-details-5" class="container portfolio-details mfp-hide">
+                                    <h2 class="popup-detail-title">Automated Traversing Computation</h2>
+                                    <div class="row">
+                                        <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12 mb-4 mb-lg-0">
+                                            <img src="assets/images/portfolio/portfolio-5/portfolio-5-1.png" class="img-fluid" alt="Portfolio 5" width="1000" height="800" />
+                                        </div>
+                                        <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12 portfolio-content">
+                                            <h4 class="">Project Info:</h4>
+                                            <p>An Excel-based solution for automating traversing computations in geomatics, enhancing efficiency and accuracy in surveying tasks.</p>
+                                            <h4 class="mt-4">Project Details:</h4>
+                                            <ul>
+                                                <li class="mb-1"><strong>Client</strong>: Surveying Firm</li>
+                                                <li class="mb-1"><strong>Category</strong>: Automation</li>
+                                                <li class="mb-1"><strong>Technologies</strong>: Excel, VBA</li>
+                                                <li class="mb-1"><strong>Project date</strong>: June 2024</li>
+                                                <li class="mb-1"><strong>Project URL</strong>: <a href="#">www.example.com</a></li>
+                                            </ul>
+                                            <ul class="d-flex flex-row align-items-center text-center">
+                                                <li class="block-title"><strong class="font-14 parent-color pr-2">Share: </strong></li>
+                                                <li class="mr-3"><a href="#" data-toggle="tooltip" data-placement="top" data-original-title="Facebook"><i class="fa-brands fa-facebook-f"></i></a></li>
+                                                <li class="mr-3"><a href="#" data-toggle="tooltip" data-placement="top" data-original-title="Twitter"><i class="fa-brands fa-x-twitter"></i></a></li>
+                                                <li class="mr-3"><a href="#" data-toggle="tooltip" data-placement="top" data-original-title="Google plus"><i class="fa-brands fa-google-plus-g"></i></a></li>
+                                                <li class="mr-3"><a href="#" data-toggle="tooltip" data-placement="top" data-original-title="Instagram"><i class="fa-brands fa-instagram"></i></a></li>
+                                                <li class="mr-3"><a href="#" data-toggle="tooltip" data-placement="top" data-original-title="Linkedin"><i class="fa-brands fa-linkedin-in"></i></a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- End Portfolio Details Popup -->
+                            </div>
+                            <!-- End Portfolio Five -->
+                            <!-- Portfolio Four -->
+                            <div class="col-xl-4 col-lg-4 col-md-6 col-sm-6 col-12 row-item portfolio-item filter-sql">
+                                <div class="portfolio-wrap">
+                                    <img src="assets/images/portfolio/portfolio-4/portfolio-4-1.png" class="img-fluid" alt="Portfolio 4" width="1000" height="800" />
+                                    <div class="portfolio-info d-flex flex-column align-items-center justify-content-center">
+                                        <div class="portfolio-inner-info">
+                                            <h4>Hospital Database System</h4>
+                                            <p>SQL</p>
+                                            <div class="portfolio-links d-flex flex-row align-items-center justify-content-center">
+                                                <a class="fancylight gallery-popup-btn" data-fancybox-group="light" href="assets/images/portfolio/portfolio-4/portfolio-4-1.png"><i class="fa-classic fa-regular fa-image"></i></a>
+                                                <a class="portfolio-detail-popup" href="#portfolio-details-4"><i class="fa fa-link"></i></a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Portfolio Details Popup -->
+                                <div id="portfolio-details-4" class="container portfolio-details mfp-hide">
+                                    <h2 class="popup-detail-title">Hospital Database System</h2>
+                                    <div class="row">
+                                        <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12 mb-4 mb-lg-0">
+                                            <img src="assets/images/portfolio/portfolio-4/portfolio-4-1.png" class="img-fluid" alt="Hospital Database System" width="1000" height="800" />
+                                        </div>
+                                        <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12 portfolio-content">
+                                            <h4 class="">Project Info:</h4>
+                                            <p>A robust SQL database system to manage patient records, appointments, and medical inventory, enhancing efficiency and data accuracy for a healthcare facility.</p>
+                                            <h4 class="mt-4">Project Details:</h4>
+                                            <ul>
+                                                <li class="mb-1"><strong>Client</strong>: Healthcare Provider</li>
+                                                <li class="mb-1"><strong>Category</strong>: Database Development</li>
+                                                <li class="mb-1"><strong>Technologies</strong>: SQL, PostgreSQL, SQL Server Management Studio</li>
+                                                <li class="mb-1"><strong>Project date</strong>: ongoing</li>
+                                                <li class="mb-1"><strong>Project URL</strong>: <a href="#">www.example.com</a></li>
+                                            </ul>
+                                            <ul class="d-flex flex-row align-items-center text-center">
+                                                <li class="block-title"><strong class="font-14 parent-color pr-2">Share: </strong></li>
+                                                <li class="mr-3"><a href="#" data-toggle="tooltip" data-placement="top" data-original-title="Facebook"><i class="fa-brands fa-facebook-f"></i></a></li>
+                                                <li class="mr-3"><a href="#" data-toggle="tooltip" data-placement="top" data-original-title="Twitter"><i class="fa-brands fa-x-twitter"></i></a></li>
+                                                <li class="mr-3"><a href="#" data-toggle="tooltip" data-placement="top" data-original-title="Google plus"><i class="fa-brands fa-google-plus-g"></i></a></li>
+                                                <li class="mr-3"><a href="#" data-toggle="tooltip" data-placement="top" data-original-title="Instagram"><i class="fa-brands fa-instagram"></i></a></li>
+                                                <li class="mr-3"><a href="#" data-toggle="tooltip" data-placement="top" data-original-title="Linkedin"><i class="fa-brands fa-linkedin-in"></i></a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- End Portfolio Details Popup -->
+                            </div>
+                            <!-- End Portfolio Four -->
+                            <!-- Portfolio Three -->
+                            <div class="col-xl-4 col-lg-4 col-md-6 col-sm-6 col-12 row-item portfolio-item filter-gis">
+                                <div class="portfolio-wrap">
+                                    <img src="assets/images/portfolio/portfolio-3/portfolio-3-1.png" class="img-fluid" alt="Portfolio 3" width="1000" height="800" />
+                                    <div class="portfolio-info d-flex flex-column align-items-center justify-content-center">
+                                        <div class="portfolio-inner-info">
+                                            <h4>Farm Mapping Data Analysis</h4>
+                                            <p>Spatial Analysis</p>
+                                            <div class="portfolio-links d-flex flex-row align-items-center justify-content-center">
+                                                <a class="fancylight gallery-popup-btn" data-fancybox-group="light" href="assets/images/portfolio/portfolio-3/portfolio-3-1.png"><i class="fa-classic fa-regular fa-image"></i></a>
+                                                <a class="portfolio-detail-popup" href="#portfolio-details-3"><i class="fa fa-link"></i></a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Portfolio Details Popup -->
+                                <div id="portfolio-details-3" class="container portfolio-details mfp-hide">
+                                    <h2 class="popup-detail-title">Farm Mapping Data Analysis</h2>
+                                    <div class="row">
+                                        <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12 mb-4 mb-lg-0">
+                                            <img src="assets/images/portfolio/portfolio-3/portfolio-3-1.png" class="img-fluid" alt="Farm Mapping Data Analysis" width="1000" height="800" />
+                                        </div>
+                                        <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12 portfolio-content">
+                                            <h4 class="">Project Info:</h4>
+                                            <p>Conducted spatial data analysis to clean errors in mapped farms for Afarinick and CJ Commodities, improving data accuracy for agricultural planning.</p>
+                                            <h4 class="mt-4">Project Details:</h4>
+                                            <ul>
+                                                <li class="mb-1"><strong>Client</strong>: Afarinick Company Limited & CJ Commodities</li>
+                                                <li class="mb-1"><strong>Category</strong>: Spatial Data Analysis</li>
+                                                <li class="mb-1"><strong>Technologies</strong>: ArcGIS, Python</li>
+                                                <li class="mb-1"><strong>Project date</strong>: April 2025</li>
+                                                <li class="mb-1"><strong>Project URL</strong>: <a href="#">confidential</a></li>
+                                            </ul>
+                                            <ul class="d-flex flex-row align-items-center text-center">
+                                                <li class="block-title"><strong class="font-14 parent-color pr-2">Share: </strong></li>
+                                                <li class="mr-3"><a href="#" data-toggle="tooltip" data-placement="top" data-original-title="Facebook"><i class="fa-brands fa-facebook-f"></i></a></li>
+                                                <li class="mr-3"><a href="#" data-toggle="tooltip" data-placement="top" data-original-title="Twitter"><i class="fa-brands fa-x-twitter"></i></a></li>
+                                                <li class="mr-3"><a href="#" data-toggle="tooltip" data-placement="top" data-original-title="Google plus"><i class="fa-brands fa-google-plus-g"></i></a></li>
+                                                <li class="mr-generic"><a href="#" data-toggle="tooltip" data-placement="top" data-original-title="Instagram"><i class="fa-brands fa-instagram"></i></a></li>
+                                                <li class="mr-3"><a href="#" data-toggle="tooltip" data-placement="top" data-original-title="Linkedin"><i class="fa-brands fa-linkedin-in"></i></a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- End Portfolio Details Popup -->
+                            </div>
+                            <!-- End Portfolio Three -->
+                            <!-- Portfolio Two -->
+                            <div class="col-xl-4 col-lg-4 col-md-6 col-sm-6 col-12 row-item portfolio-item filter-excel">
+                                <div class="portfolio-wrap">
+                                    <img src="assets/images/portfolio/portfolio-2/portfolio-2-1.png" class="img-fluid" alt="Portfolio 2" width="1000" height="800" />
+                                    <div class="portfolio-info d-flex flex-column align-items-center justify-content-center">
+                                        <div class="portfolio-inner-info">
+                                            <h4>Construction Progress Tracker</h4>
+                                            <p>Excel</p>
+                                            <div class="portfolio-links d-flex flex-row align-items-center justify-content-center">
+                                                <a class="fancylight gallery-popup-btn" data-fancybox-group="light" href="assets/images/portfolio/portfolio-2/portfolio-2-1.png"><i class="fa-classic fa-regular fa-image"></i></a>
+                                                <a class="portfolio-detail-popup" href="#portfolio-details-2"><i class="fa fa-link"></i></a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Portfolio Details Popup -->
+                                <div id="portfolio-details-2" class="container portfolio-details mfp-hide">
+                                    <h2 class="popup-detail-title">Construction Progress Tracker</h2>
+                                    <div class="row">
+                                        <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12 mb-4 mb-lg-0">
+                                            <img src="assets/images/portfolio/portfolio-2/portfolio-2-1.png" class="img-fluid" alt="Portfolio 1" width="1000" height="800" />
+                                        </div>
+                                        <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12 portfolio-content">
+                                            <h4 class="">Project Info:</h4>
+                                            <p>An Excel-based tool for collecting and tracking construction progress data, streamlining reporting and project management for construction sites.</p>
+                                            <h4 class="mt-4">Project Details:</h4>
+                                            <ul>
+                                                <li class="mb-1"><strong>Client</strong>: Construction Firm</li>
+                                                <li class="mb-1"><strong>Category</strong>: Data Collection</li>
+                                                <li class="mb-1"><strong>Technologies</strong>: Excel, VBA</li>
+                                                <li class="mb-1"><strong>Project date</strong>: March 2025</li>
+                                                <li class="mb-1"><strong>Project URL</strong>: <a href="#">www.example.com</a></li>
+                                            </ul>
+                                            <ul class="d-flex flex-row align-items-center text-center">
+                                                <li class="block-title"><strong class="font-14 parent-color pr-2">Share: </strong></li>
+                                                <li class="mr-3"><a href="#" data-toggle="tooltip" data-placement="top" data-original-title="Facebook"><i class="fa-brands fa-facebook-f"></i></a></li>
+                                                <li class="mr-3"><a href="#" data-toggle="tooltip" data-placement="top" data-original-title="Twitter"><i class="fa-brands fa-x-twitter"></i></a></li>
+                                                <li class="mr-3"><a href="#" data-toggle="tooltip" data-placement="top" data-original-title="Google plus"><i class="fa-brands fa-google-plus-g"></i></a></li>
+                                                <li class="mr-3"><a href="#" data-toggle="tooltip" data-placement="top" data-original-title="Instagram"><i class="fa-brands fa-instagram"></i></a></li>
+                                                <li class="mr-3"><a href="#" data-toggle="tooltip" data-placement="top" data-original-title="Linkedin"><i class="fa-brands fa-linkedin-in"></i></a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- End Portfolio Details Popup -->
+                            </div>
+                            <!-- End Portfolio Two -->
+                            <!-- Portfolio One -->
+                            <div class="col-xl-4 col-lg-4 col-md-6 col-sm-6 col-12 row-item portfolio-item filter-python">
+                                <div class="portfolio-wrap">
+                                    <img src="assets/images/portfolio/portfolio-1/portfolio-1-1.png" class="img-fluid" alt="Customer Data Cleaning Pipeline" width="1000" height="800" />
+                                    <div class="portfolio-info d-flex flex-column align-items-center justify-content-center">
+                                        <div class="portfolio-inner-info">
+                                            <h4>Customer Data Cleaning Pipeline</h4>
+                                            <p>Python Data Cleaning</p>
+                                            <div class="portfolio-links d-flex flex-row align-items-center justify-content-center">
+                                                <a class="fancylight gallery-popup-btn" data-fancybox-group="light" href="assets/images/portfolio/portfolio-1/portfolio-1-1.png"><i class="fa-classic fa-regular fa-image"></i></a>
+                                                <a class="portfolio-detail-popup" href="#portfolio-details-1"><i class="fa fa-link"></i></a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Portfolio Details Popup -->
+                                <div id="portfolio-details-1" class="container portfolio-details mfp-hide">
+                                    <h2 class="popup-detail-title">Customer Data Cleaning Pipeline</h2>
+                                    <div class="row">
+                                        <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12 mb-4 mb-lg-0">
+                                            <img src="assets/images/portfolio/portfolio-1/portfolio-1-1.png" class="img-fluid" alt="Customer Data Cleaning Pipeline" width="1000" height="800" />
+                                        </div>
+                                        <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12 portfolio-content">
+                                            <h4 class="">Project Info:</h4>
+                                            <p>Developed a Python-based pipeline to clean and standardize customer data, ensuring high-quality datasets for a confidential client’s analytics platform.</p>
+                                            <h4 class="mt-4">Project Details:</h4>
+                                            <ul>
+                                                <li class="mb-1"><strong>Client</strong>: Confidential Client</li>
+                                                <li class="mb-1"><strong>Category</strong>: Data Cleaning</li>
+                                                <li class="mb-1"><strong>Technologies</strong>: Python, Pandas, NumPy, SQL</li>
+                                                <li class="mb-1"><strong>Project date</strong>: April 2025</li>
+                                                <li class="mb-1"><strong>Project URL</strong>: <a href="#">Confidential</a></li>
+                                            </ul>
+                                            <ul class="d-flex flex-row align-items-center text-center">
+                                                <li class="block-title"><strong class="font-14 parent-color pr-2">Share: </strong></li>
+                                                <li class="mr-3"><a href="#" data-toggle="tooltip" data-placement="top" data-original-title="Facebook"><i class="fa-brands fa-facebook-f"></i></a></li>
+                                                <li class="mr-3"><a href="#" data-toggle="tooltip" data-placement="top" data-original-title="Twitter"><i class="fa-brands fa-x-twitter"></i></a></li>
+                                                <li class="mr-3"><a href="#" data-toggle="tooltip" data-placement="top" data-original-title="Google plus"><i class="fa-brands fa-google-plus-g"></i></a></li>
+                                                <li class="mr-3"><a href="#" data-toggle="tooltip" data-placement="top" data-original-title="Instagram"><i class="fa-brands fa-instagram"></i></a></li>
+                                                <li class="mr-3"><a href="#" data-toggle="tooltip" data-placement="top" data-original-title="Linkedin"><i class="fa-brands fa-linkedin-in"></i></a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- End Portfolio Details Popup -->
+                            </div>
+                            <!-- End Portfolio One -->
+                        </div>
+                        <!-- End Row -->
+                    </div>
+                    <!-- End Container -->
+                </section>
+                <!-- End Portfolio Section -->
+
+                <!-- Blog Section -->
+                <section id="blog" class="blog gray-bg section-spacing">
+                    <!-- Container -->
+                    <div class="container">
+                        <!-- Section Title -->
+                        <div class="section-title">
+                            <h1>My <span>Blogs</span></h1>
+                            <span class="separator"></span>
+                        </div>
+                        <!-- End Section Title -->
+                        <!-- Row -->
+                        <div class="row row-items">
+                            <!-- Blog One -->
+                            <div class="col-xl-4 col-lg-4 col-md-6 col-sm-6 col-12 row-item">
+                                <!-- Blog Card -->
+                                <div class="blog-card card">
+                                    <div class="blog-card-img">
+                                        <a class="blog-detail-popup" href="#blog-details-1"><img src="assets/images/blog/blog-1.jpg" class="img-fluid" alt="Blog 1" width="500" height="300" /></a>
+                                    </div>
+                                    <div class="blog-card-text p-3 p-md-4">
+                                        <h5>There are many passages</h5>
+                                        <div class="meta-action">
+                                            <span class="d-inline-block mr-3"><i class="fa-classic fa-regular fa-calendar-days mr-2"></i>12 Feb 2024</span><span class="d-inline-block"><i class="fa fa-comments mr-2"></i>14 comments</span>
+                                        </div>
+                                        <p class="my-1">There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form.</p>
+                                        <a href="#blog-details-1" class="btn-link blog-detail-popup">Read more<i class="ml-1 fa fa-angle-double-right"></i></a>
+                                    </div>
+                                </div>
+                                <!-- End Blog Card -->
+                                <!-- Blog Details Popup -->
+                                <div id="blog-details-1" class="container blog-details mfp-hide">
+                                    <h2 class="popup-detail-title">Post Title</h2>
+                                    <div class="row">
+                                        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                                            <h5>There are many passages</h5>
+                                            <div class="meta-action mb-2">
+                                                <span class="d-inline-block mr-3"><i class="fa-classic fa-regular fa-calendar-days mr-2"></i>12 Feb 2024</span><span class="d-inline-block"><i class="fa fa-comments mr-2"></i>14 comments</span>
+                                            </div>
+                                            <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
+                                            <div class="row blog-short-dec my-4">
+                                                <div class="col-xl-5 col-lg-5 col-md-12 col-sm-12 col-12 blog-img mb-2 mb-lg-0">
+                                                    <!-- Carousel Slider -->
+                                                    <div id="carouselBlog1" class="blog-details-carousel carousel slide" data-ride="carousel">
+                                                        <!-- Carousel Items -->
+                                                        <div class="carousel-inner">
+                                                            <!-- Portfolio One -->
+                                                            <div class="carousel-item text-center item active"><img src="assets/images/blog/blog-1.jpg" class="img-fluid" alt="Blog 9" width="500" height="300" /></div>
+                                                            <!-- End Portfolio One -->
+                                                            <!-- Portfolio Two -->
+                                                            <div class="carousel-item text-center item"><img src="assets/images/blog/blog-2.jpg" class="img-fluid" alt="Blog 2" width="500" height="300" /></div>
+                                                            <!-- End Portfolio Two -->
+                                                            <!-- Portfolio Three -->
+                                                            <div class="carousel-item text-center item"><img src="assets/images/blog/blog-3.jpg" class="img-fluid" alt="Blog 3" width="500" height="300" /></div>
+                                                            <!-- End Portfolio Three -->
+                                                        </div>
+                                                        <!-- End Carousel Items -->
+                                                        <!-- Carousel Arrow -->
+                                                        <ol class="carousel-indicators">
+                                                            <li data-target="#carouselBlog1" data-slide-to="0" class="active"></li>
+                                                            <li data-target="#carouselBlog1" data-slide-to="1"></li>
+                                                            <li data-target="#carouselBlog1" data-slide-to="2"></li>
+                                                        </ol>
+                                                        <!-- End Carousel Arrow -->
+                                                        <!-- Carousel Dots -->
+                                                        <a class="carousel-control-prev btn p-0 m-0" href="#carouselBlog1" role="button" data-slide="prev"><i class="fa fa-angle-left carousel-controls" aria-hidden="true"></i></a>
+                                                        <a class="carousel-control-next btn p-0 m-0" href="#carouselBlog1" role="button" data-slide="next"><i class="fa fa-angle-right carousel-controls" aria-hidden="true"></i></a>
+                                                        <!-- End Carousel Dots -->
+                                                    </div>
+                                                    <!-- End Carousel Slider -->
+                                                </div>
+                                                <div class="col-xl-7 col-lg-7 col-md-12 col-sm-12 col-12 blog-content">
+                                                    <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software.</p>
+                                                    <p>It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing.</p>
+                                                </div>
+                                            </div>
+                                            <div class="post-tags-social clearfix mb-4">
+                                                <!-- Post Tags -->
+                                                <div class="post-tags float-sm-left mb-2 mb-sm-0">
+                                                    <ul class="list-group list-group-horizontal">
+                                                        <li class="block-title tags"><b class="text-uppercase mr-2">Tags:</b></li>
+                                                        <li class="list-item mr-1"><a href="#">Web Design</a>,</li>
+                                                        <li class="list-item mr-1"><a href="#">Web Developer</a></li>
+                                                    </ul>
+                                                </div>
+                                                <!-- End Post Tags -->
+                                                <!-- Social Icon -->
+                                                <div class="post-social float-sm-right">
+                                                    <div class="social-media">
+                                                        <ul class="d-flex flex-row align-items-center text-center">
+                                                            <li class="block-title share"><b class="text-uppercase mr-2">Share:</b></li>
+                                                            <li><a href="#" class="d-flex align-items-center justify-content-center" data-toggle="tooltip" data-placement="top" data-original-title="Facebook"><i class="fa-brands fa-facebook-f"></i></a></li>
+                                                            <li><a href="#" class="d-flex align-items-center justify-content-center" data-toggle="tooltip" data-placement="top" data-original-title="Twitter"><i class="fa-brands fa-x-twitter"></i></a></li>
+                                                            <li><a href="#" class="d-flex align-items-center justify-content-center" data-toggle="tooltip" data-placement="top" data-original-title="Google plus"><i class="fa-brands fa-google-plus-g"></i></a></li>
+                                                            <li><a href="#" class="d-flex align-items-center justify-content-center" data-toggle="tooltip" data-placement="top" data-original-title="Instagram"><i class="fa-brands fa-instagram"></i></a></li>
+                                                            <li><a href="#" class="d-flex align-items-center justify-content-center" data-toggle="tooltip" data-placement="top" data-original-title="Linkedin"><i class="fa-brands fa-linkedin-in"></i></a></li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                                <!-- End Social Icon -->
+                                            </div>
+                                            <!-- Post Comment -->
+                                            <div class="media comment-item mb-4 mb-lg-5">
+                                                <img class="img-fluid img-thumbnail comment-img" src="assets/images/testimonial/testimonial-1.jpg" width="100" height="100" alt="Testimonial 1" />
+                                                <div class="media-body ml-3 ml-md-4">
+                                                    <h6 class="mb-1"><a href="#">Lorem Ipsum</a></h6>
+                                                    <p class="meta-action mb-1"><span>16 February, 2024 at 7:30 am</span></p>
+                                                    <p class="mb-2">The standard chunk of Lorem Ipsum used since the 1500s is reproduced below for those interested.</p>
+                                                </div>
+                                            </div>
+                                            <!-- End Post Comment -->
+                                            <!-- Post Comment Form -->
+                                            <div class="section-title">
+                                                <h4>Leave a Reply</h4>
+                                            </div>
+                                            <form action="#" class="contact-form needs-validation" novalidate>
+                                                <div class="form-row">
+                                                    <div class="form-group col-12 col-sm-6 col-md-6">
+                                                        <input type="text" class="form-control" placeholder="Name" required="" />
+                                                    </div>
+                                                    <div class="form-group col-12 col-sm-6 col-md-6">
+                                                        <input type="email" class="form-control" placeholder="Email" required="" />
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <input type="text" class="form-control" placeholder="Website" required="" />
+                                                </div>
+                                                <div class="form-group">
+                                                    <textarea class="form-control" rows="4" placeholder="Comment" required=""></textarea>
+                                                </div>
+                                                <button type="submit" class="btn btn-secondary mt-1 blog-com-btn"><span><i class="fa fa-send mr-2"></i>Send Message</span></button>
+                                            </form>
+                                            <!-- End Post Comment Form -->
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- End Blog Details Popup -->
+                            </div>
+                            <!-- End Blog One -->
+                            <!-- Blog Two -->
+                            <div class="col-xl-4 col-lg-4 col-md-6 col-sm-6 col-12 row-item">
+                                <!-- Blog Card -->
+                                <div class="blog-card card">
+                                    <div class="blog-card-img">
+                                        <a class="blog-detail-popup" href="#blog-details-2"><img src="assets/images/blog/blog-2.jpg" class="img-fluid" alt="Blog 2" width="500" height="300" /></a>
+                                    </div>
+                                    <div class="blog-card-text p-3 p-md-4">
+                                        <h5>The standard even book</h5>
+                                        <div class="meta-action">
+                                            <span class="d-inline-block mr-3"><i class="fa-classic fa-regular fa-calendar-days mr-2"></i>20 Mar 2024</span><span class="d-inline-block"><i class="fa fa-comments mr-2"></i>21 comments</span>
+                                        </div>
+                                        <p class="my-1">There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form.</p>
+                                        <a href="#blog-details-2" class="btn-link blog-detail-popup">Read more<i class="ml-1 fa fa-angle-double-right"></i></a>
+                                    </div>
+                                </div>
+                                <!-- End Blog Card -->
+                                <!-- Blog Details Popup -->
+                                <div id="blog-details-2" class="container blog-details mfp-hide">
+                                    <h2 class="popup-detail-title">Post Title</h2>
+                                    <div class="row">
+                                        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                                            <h5>The standard even book</h5>
+                                            <div class="meta-action mb-2">
+                                                <span class="d-inline-block mr-3"><i class="fa-classic fa-regular fa-calendar-days mr-2"></i>20 Mar 2024</span><span class="d-inline-block"><i class="fa fa-comments mr-2"></i>21 comments</span>
+                                            </div>
+                                            <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
+                                            <div class="row blog-short-dec my-4">
+                                                <div class="col-xl-5 col-lg-5 col-md-12 col-sm-12 col-12 blog-img mb-4 mb-lg-0">
+                                                    <img class="img-fluid" src="assets/images/blog/blog-2.jpg" alt="Blog 2" width="500" height="300" />
+                                                </div>
+                                                <div class="col-xl-7 col-lg-7 col-md-12 col-sm-12 col-12 blog-content">
+                                                    <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software.</p>
+                                                    <p>It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing.</p>
+                                                </div>
+                                            </div>
+                                            <div class="post-tags-social clearfix mb-4">
+                                                <!-- Post Tags -->
+                                                <div class="post-tags float-sm-left mb-2 mb-sm-0">
+                                                    <ul class="list-group list-group-horizontal">
+                                                        <li class="block-title tags"><b class="text-uppercase mr-2">Tags:</b></li>
+                                                        <li class="list-item mr-1"><a href="#">Web Design</a>,</li>
+                                                        <li class="list-item mr-1"><a href="#">Web Developer</a></li>
+                                                    </ul>
+                                                </div>
+                                                <!-- End Post Tags -->
+                                                <!-- Social Icon -->
+                                                <div class="post-social float-sm-right">
+                                                    <div class="social-media">
+                                                        <ul class="d-flex flex-row align-items-center text-center">
+                                                            <li class="block-title share"><b class="text-uppercase mr-2">Share:</b></li>
+                                                            <li><a href="#" class="d-flex align-items-center justify-content-center" data-toggle="tooltip" data-placement="top" data-original-title="Facebook"><i class="fa-brands fa-facebook-f"></i></a></li>
+                                                            <li><a href="#" class="d-flex align-items-center justify-content-center" data-toggle="tooltip" data-placement="top" data-original-title="Twitter"><i class="fa-brands fa-x-twitter"></i></a></li>
+                                                            <li><a href="#" class="d-flex align-items-center justify-content-center" data-toggle="tooltip" data-placement="top" data-original-title="Google plus"><i class="fa-brands fa-google-plus-g"></i></a></li>
+                                                            <li><a href="#" class="d-flex align-items-center justify-content-center" data-toggle="tooltip" data-placement="top" data-original-title="Instagram"><i class="fa-brands fa-instagram"></i></a></li>
+                                                            <li><a href="#" class="d-flex align-items-center justify-content-center" data-toggle="tooltip" data-placement="top" data-original-title="Linkedin"><i class="fa-brands fa-linkedin-in"></i></a></li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                                <!-- End Social Icon -->
+                                            </div>
+                                            <!-- Post Comment -->
+                                            <div class="media comment-item mb-4 mb-lg-5">
+                                                <img class="img-fluid img-thumbnail comment-img" src="assets/images/testimonial/testimonial-1.jpg" width="100" height="100" alt="Testimonial 1" />
+                                                <div class="media-body ml-3 ml-md-4">
+                                                    <h6 class="mb-1"><a href="#">Lorem Ipsum</a></h6>
+                                                    <p class="meta-action mb-1"><span>16 February, 2024 at 7:30 am</span></p>
+                                                    <p class="mb-2">The standard chunk of Lorem Ipsum used since the 1500s is reproduced below for those interested.</p>
+                                                </div>
+                                            </div>
+                                            <!-- End Post Comment -->
+                                            <!-- Post Comment Form -->
+                                            <div class="section-title">
+                                                <h4>Leave a Reply</h4>
+                                            </div>
+                                            <form action="#" class="contact-form needs-validation" novalidate>
+                                                <div class="form-row">
+                                                    <div class="form-group col-12 col-sm-6 col-md-6">
+                                                        <input type="text" class="form-control" placeholder="Name" required="" />
+                                                    </div>
+                                                    <div class="form-group col-12 col-sm-6 col-md-6">
+                                                        <input type="email" class="form-control" placeholder="Email" required="" />
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <input type="text" class="form-control" placeholder="Website" required="" />
+                                                </div>
+                                                <div class="form-group">
+                                                    <textarea class="form-control" rows="4" placeholder="Comment" required=""></textarea>
+                                                </div>
+                                                <button type="submit" class="btn btn-secondary mt-1 blog-com-btn"><span><i class="fa fa-send mr-2"></i>Send Message</span></button>
+                                            </form>
+                                            <!-- End Post Comment Form -->
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- End Blog Details Popup -->
+                            </div>
+                            <!-- End Blog Two -->
+                            <!-- Blog Three -->
+                            <div class="col-xl-4 col-lg-4 col-md-6 col-sm-6 col-12 row-item">
+                                <!-- Blog Card -->
+                                <div class="blog-card card">
+                                    <div class="blog-card-img">
+                                        <a class="blog-detail-popup" href="#blog-details-3"><img src="assets/images/blog/blog-3.jpg" class="img-fluid" alt="Blog 3" width="500" height="300" /></a>
+                                    </div>
+                                    <div class="blog-card-text p-3 p-md-4">
+                                        <h5>Lorem Ipsum simply dummy</h5>
+                                        <div class="meta-action">
+                                            <span class="d-inline-block mr-3"><i class="fa-classic fa-regular fa-calendar-days mr-2"></i>06 May 2024</span><span class="d-inline-block"><i class="fa fa-comments mr-2"></i>12 comments</span>
+                                        </div>
+                                        <p class="my-1">There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form.</p>
+                                        <a href="#blog-details-3" class="btn-link blog-detail-popup">Read more<i class="ml-1 fa fa-angle-double-right"></i></a>
+                                    </div>
+                                </div>
+                                <!-- End Blog Card -->
+                                <!-- Blog Details Popup -->
+                                <div id="blog-details-3" class="container blog-details mfp-hide">
+                                    <h2 class="popup-detail-title">Post Title</h2>
+                                    <div class="row">
+                                        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                                            <h5>Lorem Ipsum is simply dummy</h5>
+                                            <div class="meta-action mb-2">
+                                                <span class="d-inline-block mr-3"><i class="fa-classic fa-regular fa-calendar-days mr-2"></i>06 May 2024</span><span class="d-inline-block"><i class="fa fa-comments mr-2"></i>12 comments</span>
+                                            </div>
+                                            <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
+                                            <div class="row blog-short-dec my-4">
+                                                <div class="col-xl-5 col-lg-5 col-md-12 col-sm-12 col-12 blog-img mb-4 mb-lg-0">
+                                                    <img class="img-fluid" src="assets/images/blog/blog-3.jpg" alt="Blog 3" />
+                                                </div>
+                                                <div class="col-xl-7 col-lg-7 col-md-12 col-sm-12 col-12 blog-content">
+                                                    <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software.</p>
+                                                    <p>It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing.</p>
+                                                </div>
+                                            </div>
+                                            <div class="post-tags-social clearfix mb-4">
+                                                <!-- Post Tags -->
+                                                <div class="post-tags float-sm-left mb-2 mb-sm-0">
+                                                    <ul class="list-group list-group-horizontal">
+                                                        <li class="block-title tags"><b class="text-uppercase mr-2">Tags:</b></li>
+                                                        <li class="list-item mr-1"><a href="#">Web Design</a>,</li>
+                                                        <li class="list-item mr-1"><a href="#">Web Developer</a></li>
+                                                    </ul>
+                                                </div>
+                                                <!-- End Post Tags -->
+                                                <!-- Social Icon -->
+                                                <div class="post-social float-sm-right">
+                                                    <div class="social-media">
+                                                        <ul class="d-flex flex-row align-items-center text-center">
+                                                            <li class="block-title share"><b class="text-uppercase mr-2">Share:</b></li>
+                                                            <li><a href="#" class="d-flex align-items-center justify-content-center" data-toggle="tooltip" data-placement="top" data-original-title="Facebook"><i class="fa-brands fa-facebook-f"></i></a></li>
+                                                            <li><a href="#" class="d-flex align-items-center justify-content-center" data-toggle="tooltip" data-placement="top" data-original-title="Twitter"><i class="fa-brands fa-x-twitter"></i></a></li>
+                                                            <li><a href="#" class="d-flex align-items-center justify-content-center" data-toggle="tooltip" data-placement="top" data-original-title="Google plus"><i class="fa-brands fa-google-plus-g"></i></a></li>
+                                                            <li><a href="#" class="d-flex align-items-center justify-content-center" data-toggle="tooltip" data-placement="top" data-original-title="Instagram"><i class="fa-brands fa-instagram"></i></a></li>
+                                                            <li><a href="#" class="d-flex align-items-center justify-content-center" data-toggle="tooltip" data-placement="top" data-original-title="Linkedin"><i class="fa-brands fa-linkedin-in"></i></a></li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                                <!-- End Social Icon -->
+                                            </div>
+                                            <!-- Post Comment -->
+                                            <div class="media comment-item mb-4 mb-lg-5">
+                                                <img class="img-fluid img-thumbnail comment-img" src="assets/images/testimonial/testimonial-1.jpg" width="100" height="100" alt="Testimonial 1" />
+                                                <div class="media-body ml-3 ml-md-4">
+                                                    <h6 class="mb-1"><a href="#">Lorem Ipsum</a></h6>
+                                                    <p class="meta-action mb-1"><span>16 February, 2024 at 7:30 am</span></p>
+                                                    <p class="mb-2">The standard chunk of Lorem Ipsum used since the 1500s is reproduced below for those interested.</p>
+                                                </div>
+                                            </div>
+                                            <!-- End Post Comment -->
+                                            <!-- Post Comment Form -->
+                                            <div class="section-title">
+                                                <h4>Leave a Reply</h4>
+                                            </div>
+                                            <form action="#" class="contact-form needs-validation" novalidate>
+                                                <div class="form-row">
+                                                    <div class="form-group col-12 col-sm-6 col-md-6">
+                                                        <input type="text" class="form-control" placeholder="Name" required="" />
+                                                    </div>
+                                                    <div class="form-group col-12 col-sm-6 col-md-6">
+                                                        <input type="email" class="form-control" placeholder="Email" required="" />
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <input type="text" class="form-control" placeholder="Website" required="" />
+                                                </div>
+                                                <div class="form-group">
+                                                    <textarea class="form-control" rows="4" placeholder="Comment" required=""></textarea>
+                                                </div>
+                                                <button type="submit" class="btn btn-secondary mt-1 blog-com-btn"><span><i class="fa fa-send mr-2"></i>Send Message</span></button>
+                                            </form>
+                                            <!-- End Post Comment Form -->
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- End Blog Details Popup -->
+                            </div>
+                            <!-- End Blog Three -->
+                             <template>
+                            <!-- Blog Four -->
+                            <div class="col-xl-4 col-lg-4 col-md-6 col-sm-6 col-12 row-item">
+                                <!-- Blog Card -->
+                                <div class="blog-card card">
+                                    <div class="blog-card-img">
+                                        <a class="blog-detail-popup" href="#blog-details-4"><img src="assets/images/blog/blog-4.jpg" class="img-fluid" alt="Blog 4" width="500" height="300" /></a>
+                                    </div>
+                                    <div class="blog-card-text p-3 p-md-4">
+                                        <h5>How to create fames</h5>
+                                        <div class="meta-action">
+                                            <span class="d-inline-block mr-3"><i class="fa-classic fa-regular fa-calendar-days mr-2"></i>17 Jul 2024</span><span class="d-inline-block"><i class="fa fa-comments mr-2"></i>19 comments</span>
+                                        </div>
+                                        <p class="my-1">There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form.</p>
+                                        <a href="#blog-details-4" class="btn-link blog-detail-popup">Read more<i class="ml-1 fa fa-angle-double-right"></i></a>
+                                    </div>
+                                </div>
+                                <!-- End Blog Card -->
+                                <!-- Blog Details Popup -->
+                                <div id="blog-details-4" class="container blog-details mfp-hide">
+                                    <h2 class="popup-detail-title">Post Title</h2>
+                                    <div class="row">
+                                        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                                            <h5>How to create fames</h5>
+                                            <div class="meta-action mb-2">
+                                                <span class="d-inline-block mr-3"><i class="fa-classic fa-regular fa-calendar-days mr-2"></i>17 Jul 2024</span><span class="d-inline-block"><i class="fa fa-comments mr-2"></i>19 comments</span>
+                                            </div>
+                                            <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
+                                            <div class="row blog-short-dec my-4">
+                                                <div class="col-xl-5 col-lg-5 col-md-12 col-sm-12 col-12 blog-img mb-4 mb-lg-0">
+                                                    <img class="img-fluid" src="assets/images/blog/blog-4.jpg" alt="Blog 4" width="500" height="300" />
+                                                </div>
+                                                <div class="col-xl-7 col-lg-7 col-md-12 col-sm-12 col-12 blog-content">
+                                                    <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software.</p>
+                                                    <p>It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing.</p>
+                                                </div>
+                                            </div>
+                                            <div class="post-tags-social clearfix mb-4">
+                                                <!-- Post Tags -->
+                                                <div class="post-tags float-sm-left mb-2 mb-sm-0">
+                                                    <ul class="list-group list-group-horizontal">
+                                                        <li class="block-title tags"><b class="text-uppercase mr-2">Tags:</b></li>
+                                                        <li class="list-item mr-1"><a href="#">Web Design</a>,</li>
+                                                        <li class="list-item mr-1"><a href="#">Web Developer</a></li>
+                                                    </ul>
+                                                </div>
+                                                <!-- End Post Tags -->
+                                                <!-- Social Icon -->
+                                                <div class="post-social float-sm-right">
+                                                    <div class="social-media">
+                                                        <ul class="d-flex flex-row align-items-center text-center">
+                                                            <li class="block-title share"><b class="text-uppercase mr-2">Share:</b></li>
+                                                            <li><a href="#" class="d-flex align-items-center justify-content-center" data-toggle="tooltip" data-placement="top" data-original-title="Facebook"><i class="fa-brands fa-facebook-f"></i></a></li>
+                                                            <li><a href="#" class="d-flex align-items-center justify-content-center" data-toggle="tooltip" data-placement="top" data-original-title="Twitter"><i class="fa-brands fa-x-twitter"></i></a></li>
+                                                            <li><a href="#" class="d-flex align-items-center justify-content-center" data-toggle="tooltip" data-placement="top" data-original-title="Google plus"><i class="fa-brands fa-google-plus-g"></i></a></li>
+                                                            <li><a href="#" class="d-flex align-items-center justify-content-center" data-toggle="tooltip" data-placement="top" data-original-title="Instagram"><i class="fa-brands fa-instagram"></i></a></li>
+                                                            <li><a href="#" class="d-flex align-items-center justify-content-center" data-toggle="tooltip" data-placement="top" data-original-title="Linkedin"><i class="fa-brands fa-linkedin-in"></i></a></li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                                <!-- End Social Icon -->
+                                            </div>
+                                            <!-- Post Comment -->
+                                            <div class="media comment-item mb-4 mb-lg-5">
+                                                <img class="img-fluid img-thumbnail comment-img" src="assets/images/testimonial/testimonial-1.jpg" width="100" height="100" alt="Testimonial 1" />
+                                                <div class="media-body ml-3 ml-md-4">
+                                                    <h6 class="mb-1"><a href="#">Lorem Ipsum</a></h6>
+                                                    <p class="meta-action mb-1"><span>16 February, 2024 at 7:30 am</span></p>
+                                                    <p class="mb-2">The standard chunk of Lorem Ipsum used since the 1500s is reproduced below for those interested.</p>
+                                                </div>
+                                            </div>
+                                            <!-- End Post Comment -->
+                                            <!-- Post Comment Form -->
+                                            <div class="section-title">
+                                                <h4>Leave a Reply</h4>
+                                            </div>
+                                            <form action="#" class="contact-form needs-validation" novalidate>
+                                                <div class="form-row">
+                                                    <div class="form-group col-12 col-sm-6 col-md-6">
+                                                        <input type="text" class="form-control" placeholder="Name" required="" />
+                                                    </div>
+                                                    <div class="form-group col-12 col-sm-6 col-md-6">
+                                                        <input type="email" class="form-control" placeholder="Email" required="" />
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <input type="text" class="form-control" placeholder="Website" required="" />
+                                                </div>
+                                                <div class="form-group">
+                                                    <textarea class="form-control" rows="4" placeholder="Comment" required=""></textarea>
+                                                </div>
+                                                <button type="submit" class="btn btn-secondary mt-1 blog-com-btn"><span><i class="fa fa-send mr-2"></i>Send Message</span></button>
+                                            </form>
+                                            <!-- End Post Comment Form -->
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- End Blog Details Popup -->
+                            </div>
+                            <!-- End Blog Four -->
+                            <!-- Blog Five -->
+                            <div class="col-xl-4 col-lg-4 col-md-6 col-sm-6 col-12 row-item">
+                                <!-- Blog Card -->
+                                <div class="blog-card card">
+                                    <div class="blog-card-img">
+                                        <a class="blog-detail-popup" href="#blog-details-5"><img src="assets/images/blog/blog-5.jpg" class="img-fluid" alt="Blog 5" width="500" height="300" /></a>
+                                    </div>
+                                    <div class="blog-card-text p-3 p-md-4">
+                                        <h5>Contrary to popular belief</h5>
+                                        <div class="meta-action">
+                                            <span class="d-inline-block mr-3"><i class="fa-classic fa-regular fa-calendar-days mr-2"></i>28 July 2024</span><span class="d-inline-block"><i class="fa fa-comments mr-2"></i>24 comments</span>
+                                        </div>
+                                        <p class="my-1">There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form.</p>
+                                        <a href="#blog-details-5" class="btn-link blog-detail-popup">Read more<i class="ml-1 fa fa-angle-double-right"></i></a>
+                                    </div>
+                                </div>
+                                <!-- End Blog Card -->
+                                <!-- Blog Details Popup -->
+                                <div id="blog-details-5" class="container blog-details mfp-hide">
+                                    <h2 class="popup-detail-title">Post Title</h2>
+                                    <div class="row">
+                                        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                                            <h5>Contrary to popular belief</h5>
+                                            <div class="meta-action mb-2">
+                                                <span class="d-inline-block mr-3"><i class="fa-classic fa-regular fa-calendar-days mr-2"></i>28 July 2024</span><span class="d-inline-block"><i class="fa fa-comments mr-2"></i>24 comments</span>
+                                            </div>
+                                            <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
+                                            <div class="row blog-short-dec my-4">
+                                                <div class="col-xl-5 col-lg-5 col-md-12 col-sm-12 col-12 blog-img mb-2 mb-lg-0">
+                                                    <!-- Carousel Slider -->
+                                                    <div id="carouselBlog2" class="blog-details-carousel carousel slide" data-ride="carousel">
+                                                        <!-- Carousel Items -->
+                                                        <div class="carousel-inner">
+                                                            <!-- Portfolio One -->
+                                                            <div class="carousel-item text-center item active"><img src="assets/images/blog/blog-5.jpg" class="img-fluid" alt="Blog 5" width="500" height="300" /></div>
+                                                            <!-- End Portfolio One -->
+                                                            <!-- Portfolio Two -->
+                                                            <div class="carousel-item text-center item"><img src="assets/images/blog/blog-2.jpg" class="img-fluid" alt="Blog 2" width="500" height="300" /></div>
+                                                            <!-- End Portfolio Two -->
+                                                            <!-- Portfolio Three -->
+                                                            <div class="carousel-item text-center item"><img src="assets/images/blog/blog-3.jpg" class="img-fluid" alt="Blog 3" width="500" height="300" /></div>
+                                                            <!-- End Portfolio Three -->
+                                                        </div>
+                                                        <!-- End Carousel Items -->
+                                                        <!-- Carousel Arrow -->
+                                                        <ol class="carousel-indicators">
+                                                            <li data-target="#carouselBlog2" data-slide-to="0" class="active"></li>
+                                                            <li data-target="#carouselBlog2" data-slide-to="1"></li>
+                                                            <li data-target="#carouselBlog2" data-slide-to="2"></li>
+                                                        </ol>
+                                                        <!-- End Carousel Arrow -->
+                                                        <!-- Carousel Dots -->
+                                                        <a class="carousel-control-prev btn p-0 m-0" href="#carouselBlog2" role="button" data-slide="prev"><i class="fa fa-angle-left carousel-controls" aria-hidden="true"></i></a>
+                                                        <a class="carousel-control-next btn p-0 m-0" href="#carouselBlog2" role="button" data-slide="next"><i class="fa fa-angle-right carousel-controls" aria-hidden="true"></i></a>
+                                                        <!-- End Carousel Dots -->
+                                                    </div>
+                                                    <!-- End Carousel Slider -->
+                                                </div>
+                                                <div class="col-xl-7 col-lg-7 col-md-12 col-sm-12 col-12 blog-content">
+                                                    <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software.</p>
+                                                    <p>It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing.</p>
+                                                </div>
+                                            </div>
+                                            <div class="post-tags-social clearfix mb-4">
+                                                <!-- Post Tags -->
+                                                <div class="post-tags float-sm-left mb-2 mb-sm-0">
+                                                    <ul class="list-group list-group-horizontal">
+                                                        <li class="block-title tags"><b class="text-uppercase mr-2">Tags:</b></li>
+                                                        <li class="list-item mr-1"><a href="#">Web Design</a>,</li>
+                                                        <li class="list-item mr-1"><a href="#">Web Developer</a></li>
+                                                    </ul>
+                                                </div>
+                                                <!-- End Post Tags -->
+                                                <!-- Social Icon -->
+                                                <div class="post-social float-sm-right">
+                                                    <div class="social-media">
+                                                        <ul class="d-flex flex-row align-items-center text-center">
+                                                            <li class="block-title share"><b class="text-uppercase mr-2">Share:</b></li>
+                                                            <li><a href="#" class="d-flex align-items-center justify-content-center" data-toggle="tooltip" data-placement="top" data-original-title="Facebook"><i class="fa-brands fa-facebook-f"></i></a></li>
+                                                            <li><a href="#" class="d-flex align-items-center justify-content-center" data-toggle="tooltip" data-placement="top" data-original-title="Twitter"><i class="fa-brands fa-x-twitter"></i></a></li>
+                                                            <li><a href="#" class="d-flex align-items-center justify-content-center" data-toggle="tooltip" data-placement="top" data-original-title="Google plus"><i class="fa-brands fa-google-plus-g"></i></a></li>
+                                                            <li><a href="#" class="d-flex align-items-center justify-content-center" data-toggle="tooltip" data-placement="top" data-original-title="Instagram"><i class="fa-brands fa-instagram"></i></a></li>
+                                                            <li><a href="#" class="d-flex align-items-center justify-content-center" data-toggle="tooltip" data-placement="top" data-original-title="Linkedin"><i class="fa-brands fa-linkedin-in"></i></a></li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                                <!-- End Social Icon -->
+                                            </div>
+                                            <!-- Post Comment -->
+                                            <div class="media comment-item mb-4 mb-lg-5">
+                                                <img class="img-fluid img-thumbnail comment-img" src="assets/images/testimonial/testimonial-1.jpg" width="100" height="100" alt="Testimonial 1" />
+                                                <div class="media-body ml-3 ml-md-4">
+                                                    <h6 class="mb-1"><a href="#">Lorem Ipsum</a></h6>
+                                                    <p class="meta-action mb-1"><span>16 February, 2024 at 7:30 am</span></p>
+                                                    <p class="mb-2">The standard chunk of Lorem Ipsum used since the 1500s is reproduced below for those interested.</p>
+                                                </div>
+                                            </div>
+                                            <!-- End Post Comment -->
+                                            <!-- Post Comment Form -->
+                                            <div class="section-title">
+                                                <h4>Leave a Reply</h4>
+                                            </div>
+                                            <form action="#" class="contact-form needs-validation" novalidate>
+                                                <div class="form-row">
+                                                    <div class="form-group col-12 col-sm-6 col-md-6">
+                                                        <input type="text" class="form-control" placeholder="Name" required="" />
+                                                    </div>
+                                                    <div class="form-group col-12 col-sm-6 col-md-6">
+                                                        <input type="email" class="form-control" placeholder="Email" required="" />
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <input type="text" class="form-control" placeholder="Website" required="" />
+                                                </div>
+                                                <div class="form-group">
+                                                    <textarea class="form-control" rows="4" placeholder="Comment" required=""></textarea>
+                                                </div>
+                                                <button type="submit" class="btn btn-secondary mt-1 blog-com-btn"><span><i class="fa fa-send mr-2"></i>Send Message</span></button>
+                                            </form>
+                                            <!-- End Post Comment Form -->
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- End Blog Details Popup -->
+                            </div>
+                            <!-- End Blog Five -->
+                            <!-- Blog Six -->
+                            <div class="col-xl-4 col-lg-4 col-md-6 col-sm-6 col-12 row-item">
+                                <!-- Blog Card -->
+                                <div class="blog-card card">
+                                    <div class="blog-card-img">
+                                        <a class="blog-detail-popup" href="#blog-details-6"><img src="assets/images/blog/blog-6.jpg" class="img-fluid" alt="Blog 6" width="500" height="300" /></a>
+                                    </div>
+                                    <div class="blog-card-text p-3 p-md-4">
+                                        <h5>There are many content</h5>
+                                        <div class="meta-action">
+                                            <span class="d-inline-block mr-3"><i class="fa-classic fa-regular fa-calendar-days mr-2"></i>11 Aug 2024</span><span class="d-inline-block"><i class="fa fa-comments mr-2"></i>16 comments</span>
+                                        </div>
+                                        <p class="my-1">There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form.</p>
+                                        <a href="#blog-details-6" class="btn-link blog-detail-popup">Read more<i class="ml-1 fa fa-angle-double-right"></i></a>
+                                    </div>
+                                </div>
+                                <!-- End Blog Card -->
+                                <!-- Blog Details Popup -->
+                                <div id="blog-details-6" class="container blog-details mfp-hide">
+                                    <h2 class="popup-detail-title">Post Title</h2>
+                                    <div class="row">
+                                        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                                            <h5>There are many content</h5>
+                                            <div class="meta-action mb-2">
+                                                <span class="d-inline-block mr-3"><i class="fa-classic fa-regular fa-calendar-days mr-2"></i>11 Aug 2024</span><span class="d-inline-block"><i class="fa fa-comments mr-2"></i>16 comments</span>
+                                            </div>
+                                            <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
+                                            <div class="row blog-short-dec my-4">
+                                                <div class="col-xl-5 col-lg-5 col-md-12 col-sm-12 col-12 blog-img mb-4 mb-lg-0">
+                                                    <img class="img-fluid" src="assets/images/blog/blog-6.jpg" alt="Blog 6" width="500" height="300" />
+                                                </div>
+                                                <div class="col-xl-7 col-lg-7 col-md-12 col-sm-12 col-12 blog-content">
+                                                    <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software.</p>
+                                                    <p>It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing.</p>
+                                                </div>
+                                            </div>
+                                            <div class="post-tags-social clearfix mb-4">
+                                                <!-- Post Tags -->
+                                                <div class="post-tags float-sm-left mb-2 mb-sm-0">
+                                                    <ul class="list-group list-group-horizontal">
+                                                        <li class="block-title tags"><b class="text-uppercase mr-2">Tags:</b></li>
+                                                        <li class="list-item mr-1"><a href="#">Web Design</a>,</li>
+                                                        <li class="list-item mr-1"><a href="#">Web Developer</a></li>
+                                                    </ul>
+                                                </div>
+                                                <!-- End Post Tags -->
+                                                <!-- Social Icon -->
+                                                <div class="post-social float-sm-right">
+                                                    <div class="social-media">
+                                                        <ul class="d-flex flex-row align-items-center text-center">
+                                                            <li class="block-title share"><b class="text-uppercase mr-2">Share:</b></li>
+                                                            <li><a href="#" class="d-flex align-items-center justify-content-center" data-toggle="tooltip" data-placement="top" data-original-title="Facebook"><i class="fa-brands fa-facebook-f"></i></a></li>
+                                                            <li><a href="#" class="d-flex align-items-center justify-content-center" data-toggle="tooltip" data-placement="top" data-original-title="Twitter"><i class="fa-brands fa-x-twitter"></i></a></li>
+                                                            <li><a href="#" class="d-flex align-items-center justify-content-center" data-toggle="tooltip" data-placement="top" data-original-title="Google plus"><i class="fa-brands fa-google-plus-g"></i></a></li>
+                                                            <li><a href="#" class="d-flex align-items-center justify-content-center" data-toggle="tooltip" data-placement="top" data-original-title="Instagram"><i class="fa-brands fa-instagram"></i></a></li>
+                                                            <li><a href="#" class="d-flex align-items-center justify-content-center" data-toggle="tooltip" data-placement="top" data-original-title="Linkedin"><i class="fa-brands fa-linkedin-in"></i></a></li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                                <!-- End Social Icon -->
+                                            </div>
+                                            <!-- Post Comment -->
+                                            <div class="media comment-item mb-4 mb-lg-5">
+                                                <img class="img-fluid img-thumbnail comment-img" src="assets/images/testimonial/testimonial-1.jpg" width="100" height="100" alt="Testimonial 1" />
+                                                <div class="media-body ml-3 ml-md-4">
+                                                    <h6 class="mb-1"><a href="#">Lorem Ipsum</a></h6>
+                                                    <p class="meta-action mb-1"><span>16 February, 2024 at 7:30 am</span></p>
+                                                    <p class="mb-2">The standard chunk of Lorem Ipsum used since the 1500s is reproduced below for those interested.</p>
+                                                </div>
+                                            </div>
+                                            <!-- End Post Comment -->
+                                            <!-- Post Comment Form -->
+                                            <div class="section-title">
+                                                <h4>Leave a Reply</h4>
+                                            </div>
+                                            <form action="#" class="contact-form needs-validation" novalidate>
+                                                <div class="form-row">
+                                                    <div class="form-group col-12 col-sm-6 col-md-6">
+                                                        <input type="text" class="form-control" placeholder="Name" required="" />
+                                                    </div>
+                                                    <div class="form-group col-12 col-sm-6 col-md-6">
+                                                        <input type="email" class="form-control" placeholder="Email" required="" />
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <input type="text" class="form-control" placeholder="Website" required="" />
+                                                </div>
+                                                <div class="form-group">
+                                                    <textarea class="form-control" rows="4" placeholder="Comment" required=""></textarea>
+                                                </div>
+                                                <button type="submit" class="btn btn-secondary mt-1 blog-com-btn"><span><i class="fa fa-send mr-2"></i>Send Message</span></button>
+                                            </form>
+                                            <!-- End Post Comment Form -->
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- End Blog Details Popup -->
+                            </div>
+                            <!-- End Blog Six -->
+                            </template>
+                        </div>
+                        <!-- End Row -->
+                    </div>
+                    <!-- End Container -->
+                </section>
+                <!-- End Blog Section -->
+
+                <!-- Contact Section -->
+                <section id="contact" class="contact section-spacing">
+                    <!-- Container -->
+                    <div class="container">
+                        <!-- Section Title -->
+                        <div class="section-title">
+                            <h1>Contact <span>Me</span></h1>
+                            <span class="separator"></span>
+                        </div>
+                        <!-- End Section Title -->
+                        <!-- Contact Info -->
+                        <div class="content-block contact-info-block">
+                            <!-- Row -->
+                            <div class="row  row-items">
+                                <!-- Contact Address -->
+                                <div class="col-md-6 row-item d-flex align-items-stretch">
+                                    <div class="card-body d-flex flex-row">
+                                        <div class="card-icon"><i class="fa-classic fa-solid fa-location-dot"></i></div>
+                                        <div class="card-content ml-3">
+                                            <h3>My Address</h3>
+                                            <p> Accra, Ghana, GE 303 7084</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- End Contact Address -->
+                                <!-- Contact Social Profiles -->
+                                <div class="col-md-6 row-item d-flex align-items-stretch">
+                                    <div class="card-body d-flex flex-row">
+                                        <div class="card-icon"><i class="fa fa-share-alt"></i></div>
+                                        <div class="card-content ml-3">
+                                            <h3>Social Profiles</h3>
+                                            <div class="social-links d-flex flex-wrap">
+                                                <a href="https://github.com/safoisgod" data-toggle="tooltip" data-placement="top" data-original-title="Facebook"><i class="fa-brands fa-github"></i></a>
+                                                <a href="https://twitter.com/iamnanasafo" data-toggle="tooltip" data-placement="top" data-original-title="Twitter"><i class="fa-brands fa-x-twitter"></i></a>
+                                                <a href="https://instagram.com/iamnanasafo" data-toggle="tooltip" data-placement="top" data-original-title="Instagram"><i class="fa-brands fa-instagram"></i></a>
+                                                <a href="https://linkedin.com/in/iamnanasafo" data-toggle="tooltip" data-placement="top" data-original-title="Linkedin"><i class="fa-brands fa-linkedin-in"></i></a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- End Contact Social Profiles -->
+                                <!-- Contact Email -->
+                                <div class="col-md-6 row-item d-flex align-items-stretch">
+                                    <div class="card-body d-flex flex-row">
+                                        <div class="card-icon"><i class="fa fa-envelope"></i></div>
+                                        <div class="card-content ml-3">
+                                            <h3>Email Me</h3>
+                                            <p><a href="mailto:contact@example.com">iamnanasafo@gmail.com</a></p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- End Contact Email -->
+                                <!-- Contact Call -->
+                                <div class="col-md-6 row-item d-flex align-items-stretch">
+                                    <div class="card-body d-flex flex-row">
+                                        <div class="card-icon"><i class="fa fa-phone"></i></div>
+                                        <div class="card-content ml-3">
+                                            <h3>Call Me</h3>
+                                            <p><a href="tel:+011234567890">(+233) 54 355 0766</a></p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- End Contact Call -->
+                            </div>
+                            <!-- End Row -->
+                        </div>
+                        <!-- End Contact Info -->
+                        <!-- Contact Form -->
+                        <div class="content-block contact-form-block">
+                            <p class="mt-4 mb-3">Feel free to get in touch with me. I am always open to discussing new projects, creative ideas or opportunities to be part of your visions.</p>
+                            <form method="post" action="assets/php/mail.php" id="contact-form" name="contactus" class="contact-form">    
+                                <div class="form-row">
+                                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                                        <div class="form-group">
+                                            <input type="text" id="ContactFormName" name="name" class="form-control" placeholder="Name" required="" />
+                                            <span class="error_msg" id="name_error"></span>
+                                        </div>
+                                    </div>
+                                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                                        <div class="form-group">
+                                            <input type="email" id="ContactFormEmail" name="email" class="form-control" placeholder="Email" required="" />
+                                            <span class="error_msg" id="email_error"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-row">
+                                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">
+                                        <div class="form-group">
+                                            <input type="tel" id="ContactFormPhone" name="phone" pattern="[0-9\-]*" class="form-control" placeholder="Phone Number" value="" required="" />
+                                            <span class="error_msg" id="phone_error"></span>
+                                        </div>
+                                    </div>
+                                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12">  
+                                        <div class="form-group">
+                                            <input type="text" id="ContactSubject" name="subject" class="form-control" placeholder="Subject" value="" required="" />
+                                            <span class="error_msg" id="subject_error"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <textarea id="ContactFormMessage" name="message" class="form-control" rows="4" placeholder="Type Your Message Here..."  required=""></textarea>
+                                    <span class="error_msg" id="message_error"></span>
+                                </div>
+                                <div class="form-group submit mailsendbtn submit_btn mb-0">	
+                                    <input type="submit" class="btn btn-primary cmnbtn" name="contactus" value="Send Message" />
+                                    <div class="loading">
+                                        <img src="assets/images/ajax-loader.gif" alt="loading" width="16" height="16" />
+                                    </div>
+                                </div>
+                            </form>
+                            <div class="contactus_submit">
+                                <div class="contact_us_text">
+                                    <div class="response-msg"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- End Contact Form -->
+
+                        <!-- Map -->
+                        <div class="content-block contact-map-block">
+                            <div class="responsive-map">
+                                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d127066.72273053827!2d-0.2621303801719574!3d5.591373806180916!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xfdf9084b2b7a773%3A0xbed14ed8650e2dd3!2sAccra%2C%20Ghana!5e0!3m2!1sen!2sus!4v1748539078231!5m2!1sen!2sus" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                            </div>
+                        </div>
+                        <!-- End Map -->
+                    </div>
+                    <!-- End Container -->
+                </section>
+                <!-- End contact Section -->
+            </main>
+            <!-- End Main Wrapper -->
+
+            <!-- Footer Section -->
+            <footer id="footer" class="footer section-spacing d-flex flex-row align-items-center bg-light py-4">
+                <!-- Container -->
+                <div class="container">
+                    <!-- Copyright -->
+                    <p class="copyright text-center">&copy; 2025 <a href="#">Nana Kwesi Safo</a> &nbsp; - &nbsp; All rights reserved.</p>
+                    <!-- End Copyright -->
+                </div>
+                <!-- End Container -->
+            </footer>
+            <!-- End Footer Section -->
+
+            <!-- Back To Top Scroll Arrow -->
+            <div class="back-to-top"><i class="fa fa-angle-double-up" aria-hidden="true"></i></div>
+            <!-- End Back To Top Scroll Arrow -->
+
+            <!-- Style Switcher -->
+             <!--
+            <div class="switcher-wrapper">
+                <button class="switcher-trigger"><i class="fa fa-cog fa-spin"></i></button>
+                <div class="switcher-inner">
+                    <h6>Choose Color</h6>
+                    <ul class="color-list clearfix py-4 px-3 d-flex flex-wrap">
+                        <li class="green"><button class="fa fa-check"></button></li>
+                        <li class="blue"><button class="fa fa-check"></button></li>
+                        <li class="pink"><button class="fa fa-check"></button></li>
+                        <li class="orange"><button class="fa fa-check"></button></li>
+                        <li class="purple"><button class="fa fa-check"></button></li>
+                        <li class="yellow"><button class="fa fa-check"></button></li>
+                        <li class="magenta"><button class="fa fa-check"></button></li>
+                        <li class="red"><button class="fa fa-check"></button></li>
+                    </ul>
+                </div>
+            </div>
+            -->
+            <!-- End Style Switcher -->
         </div>
-        <a href="cv.pdf" class="cv-button" download>Download CV</a>
-      </div>
-    </div>
-  </section>
-  <section class="services">
-    <div class="services-header">
-      <h2>SERVICES<span class="services-bg">SERVICES</span></h2>
-    </div>
-    <div class="services-grid">
-      <div class="service-item">
-        <img src="assets/img/services/business_analytics.png" alt="Business Analytics">
-        <h3>Business Analytics</h3>
-        <p>Harnessing data to uncover insights, optimize strategies, and drive business performance through advanced analytical techniques and reporting.</p>
-      </div>
-      <div class="service-item">
-        <img src="assets/img/services/data_cleaning.png" alt="Data Wrangling">
-        <h3>Data Wrangling</h3>
-        <p>Transforming and cleaning complex raw data into structured, usable formats to enable accurate and efficient analysis for decision-making.</p>
-      </div>
-      <div class="service-item">
-        <img src="assets/img/services/data_visualization.png" alt="Data Visualization">
-        <h3>Data Visualization</h3>
-        <p>Creating compelling and interactive visual representations of data to communicate insights clearly and support strategic business decisions.</p>
-      </div>
-      <div class="service-item">
-        <img src="assets/img/services/predictive_analysis.png" alt="Predictive Analytics">
-        <h3>Predictive Analytics</h3>
-        <p>Developing statistical models to forecast trends, predict outcomes, and guide future strategies using advanced data analysis techniques.</p>
-      </div>
-      <div class="service-item">
-        <img src="assets/img/services/evaluation.png" alt="Monitoring & Evaluation">
-        <h3>Monitoring & Evaluation</h3>
-        <p>Designing reports and dashboards to track project performance, assess impact, and ensure alignment with organizational goals and objectives.</p>
-      </div>
-      <div class="service-item">
-        <img src="assets/img/services/gis.png" alt="Geospatial Analysis">
-        <h3>Geospatial Analysis</h3>
-        <p>Analyzing spatial data using GIS tools to produce detailed maps and actionable insights for urban planning and development projects.</p>
-      </div>
-    </div>
-  </section>
-  <section class="skills">
-    <div class="skills-header">
-      <h2>SKILLS<span class="skills-bg">SKILLS</span></h2>
-    </div>
-    <div class="skills-content">
-      <div class="skills-text">
-        <h3>My Skillset</h3>
-        <hr style="border: 1px solid #ffeb3b; width: 30%; margin: 0.5rem 0;">
-        <p>With expertise in data analytics and backend web development, I specialize in tools like Python, SQL, and Power BI to deliver actionable insights and robust solutions.</p>
-      </div>
-      <div class="column-divider"></div>
-      <div class="skills-list">
-        <h4>Python <span>80%</span></h4>
-        <div class="skill-bar"><div class="skill-progress" style="width: 80%;"></div></div>
-        <h4>SQL <span>85%</span></h4>
-        <div class="skill-bar"><div class="skill-progress" style="width: 85%;"></div></div>
-        <h4>Power BI <span>75%</span></h4>
-        <div class="skill-bar"><div class="skill-progress" style="width: 75%;"></div></div>
-        <h4>Excel <span>95%</span></h4>
-        <div class="skill-bar"><div class="skill-progress" style="width: 95%;"></div></div>
-        <h4>Pandas & NumPy <span>80%</span></h4>
-        <div class="skill-bar"><div class="skill-progress" style="width: 80%;"></div></div>
-        <h4>Matplotlib & Seaborn <span>70%</span></h4>
-        <div class="skill-bar"><div class="skill-progress" style="width: 70%;"></div></div>
-      </div>
-    </div>
-    <div class="tech-carousel">
-      <div class="tech-carousel-inner">
-        <div class="tech-item">
-          <img src="assets/img/tech_carousel/anaconda.png" alt="Anaconda">
-        </div>
-        <div class="tech-item">
-          <img src="assets/img/tech_carousel/python.png" alt="Python">
-        </div>
-        <div class="tech-item">
-          <img src="assets/img/tech_carousel/pycharm.png" alt="PyCharm">
-        </div>
-        <div class="tech-item">
-          <img src="assets/img/tech_carousel/sql.png" alt="SQL">
-        </div>
-        <div class="tech-item">
-          <img src="assets/img/tech_carousel/mysql.png" alt="MySQL">
-        </div>
-        <div class="tech-item">
-          <img src="assets/img/tech_carousel/excel.webp" alt="Excel">
-        </div>
-        <div class="tech-item">
-          <img src="assets/img/tech_carousel/word.png" alt="Word">
-        </div>
-        <div class="tech-item">
-          <img src="assets/img/tech_carousel/PowerBI.png" alt="Power BI">
-        </div>
-        <div class="tech-item">
-          <img src="assets/img/tech_carousel/powerpoint.png" alt="PowerPoint">
-        </div>
-        <div class="tech-item">
-          <img src="assets/img/tech_carousel/html.png" alt="HTML">
-        </div>
-        <div class="tech-item">
-          <img src="assets/img/tech_carousel/css.png" alt="CSS">
-        </div>
-        <div class="tech-item">
-          <img src="assets/img/tech_carousel/visualstudio.png" alt="Visual Studio">
-        </div>
-        <div class="tech-item">
-          <img src="assets/img/tech_carousel/anaconda.png" alt="Anaconda">
-        </div>
-        <div class="tech-item">
-          <img src="assets/img/tech_carousel/python.png" alt="Python">
-        </div>
-        <div class="tech-item">
-          <img src="assets/img/tech_carousel/pycharm.png" alt="PyCharm">
-        </div>
-        <div class="tech-item">
-          <img src="assets/img/tech_carousel/sql.png" alt="SQL">
-        </div>
-        <div class="tech-item">
-          <img src="assets/img/tech_carousel/mysql.png" alt="MySQL">
-        </div>
-        <div class="tech-item">
-          <img src="assets/img/tech_carousel/excel.webp" alt="Excel">
-        </div>
-        <div class="tech-item">
-          <img src="assets/img/tech_carousel/word.png" alt="Word">
-        </div>
-        <div class="tech-item">
-          <img src="assets/img/tech_carousel/PowerBI.png" alt="Power BI">
-        </div>
-        <div class="tech-item">
-          <img src="assets/img/tech_carousel/powerpoint.png" alt="PowerPoint">
-        </div>
-        <div class="tech-item">
-          <img src="assets/img/tech_carousel/html.png" alt="HTML">
-        </div>
-        <div class="tech-item">
-          <img src="assets/img/tech_carousel/css.png" alt="CSS">
-        </div>
-        <div class="tech-item">
-          <img src="assets/img/tech_carousel/visualstudio.png" alt="Visual Studio">
-        </div>
-      </div>
-    </div>
-  </section>
-  <section class="projects">
-    <div class="projects-header">
-      <h2>PROJECTS<span class="projects-bg">PROJECTS</span></h2>
-    </div>
-    <div class="project-filter">
-      <button data-filter="all" class="active">All</button>
-      <button data-filter="powerbi">Power BI</button>
-      <button data-filter="excel">Excel</button>
-      <button data-filter="python">Python</button>
-      <button data-filter="sql">SQL</button>
-    </div>
-    <div class="projects-grid">
-      
-      <a href="#" class="project-item" data-category="powerbi">
-        <img src="assets/img/projects/mobile_dashboard.png" alt="Mobile Sales Dashboard">
-        <h3>Mobile Sales Dashboard</h3>
-        <p>Completed: May 2025</p>
-      </a>
-      <a href="#" class="project-item" data-category="sql">
-        <img src="assets/img/projects/crime_analysis.jpg" alt="Crime Data Analysis">
-        <h3>Data Cleaning - LAPD Crime Data 2020 to Date</h3>
-        <p>Completed: May 2025</p>
-      </a>
-      <a href="#" class="project-item" data-category="powerbi">
-        <img src="assets/img/projects/coffee_dashboard.png" alt="Coffee Shop Dashboard">
-        <h3>Coffee Shop Dashboard</h3>
-        <p>Completed: April 2025</p>
-      </a>
-      <a href="#" class="project-item" data-category="powerbi">
-        <img src="assets/img/projects/LOGISTICS.png" alt="Logistics Management Dashboard">
-        <h3>Logistics Management Dashboard</h3>
-        <p>Completed: March 2025</p>
-      </a>
-      <a href="#" class="project-item" data-category="python">
-        <img src="assets/img/projects/malaria_analysis.png" alt="EDA World Malaria with Python">
-        <h3>Exploratory Data Analysis - World Malaria</h3>
-        <p>Completed: July 2024</p>
-      </a>
-      <a href="#" class="project-item" data-category="sql">
-        <img src="assets/img/projects/hospital_database.jpg" alt="Hospital Database">
-        <h3>Hospital Database Management System</h3>
-        <p>Completed: incomplete</p>
-      </a>
-      <a href="#" class="project-item" data-category="excel">
-        <img src="assets/img/projects/traversing_computation.png" alt="Geomatics Traversing">
-        <h3>Automated Traversing Computation</h3>
-        <p>Completed: June 2024</p>
-      </a>
-    </div>
-  </section>
-  <section class="education">
-    <div class="education-header">
-      <h2>EDUCATION & CERTIFICATIONS<span class="education-bg">EDUCATION</span></h2>
-    </div>
-    <div class="education-grid">
-      <div class="education-item">
-        <h3>B.Sc. Geomatic Engineering</h3>
-        <p>Kwame Nkrumah University of Science and Technology, Kumasi, Ghana<br>Sep 2018 - Aug 2022</p>
-      </div>
-      <div class="education-item">
-        <h3>Data Analytics</h3>
-        <p>ALX Academy, Accra, Ghana<br>Mar 2024 - Aug 2024</p>
-      </div>
-      <div class="education-item">
-        <h3>Backend Web Development</h3>
-        <p>ALX Academy, Accra, Ghana<br>Mar 2025 - Present</p>
-      </div>
-      <div class="education-item">
-        <h3>Microsoft Excel Certification</h3>
-        <p>Coursera<br>Nov 2024</p>
-      </div>
-      <div class="education-item">
-        <h3>Python Certification</h3>
-        <p>Kaggle<br>Aug 2024</p>
-      </div>
-      <div class="education-item">
-        <h3>Google Analytics Certification</h3>
-        <p>Google<br>Apr 2024</p>
-      </div>
-    </div>
-  </section>
-  <script>
-    document.querySelectorAll('.project-filter button').forEach(button => {
-      button.addEventListener('click', () => {
-        document.querySelectorAll('.project-filter button').forEach(btn => btn.classList.remove('active'));
-        button.classList.add('active');
-        const filter = button.getAttribute('data-filter');
-        document.querySelectorAll('.project-item').forEach(item => {
-          if (filter === 'all' || item.getAttribute('data-category') === filter) {
-            item.style.display = 'block';
-          } else {
-            item.style.display = 'none';
-          }
-        });
-      });
-    });
-  </script>
-</body>
+        <!-- End Page Wrapper -->
+
+
+        <!-- *********** Plugins JS Files *********** -->
+        <!-- Jquery -->
+        <script src="assets/js/jquery-3.5.1.js"></script>
+        <!-- Bootstrap -->
+        <script src="assets/js/bootstrap.bundle.min.js"></script>
+        <!-- Line Progressbar -->
+        <script src="assets/js/jquery.lineProgressbar.js"></script>
+        <!-- Isotope Gallery -->
+        <script src="assets/js/isotope.pkgd.min.js"></script>
+        <!-- Animate Headline -->
+        <script src="assets/js/jquery.animatedheadline.js"></script>
+        <!-- Counter Up -->
+        <script src="assets/js/jquery.waypoints.min.js"></script>
+        <script src="assets/js/jquery.countup.min.js"></script>
+        <!-- Magnific Popup -->
+        <script src="assets/js/jquery.magnific-popup.min.js"></script>
+
+        <!-- *********** Template JS Files *********** -->
+        <!-- Main JS -->
+        <script src="assets/js/main.js"></script>
+        <!-- Switcher JS -->
+        <script src="assets/js/switcher.js"></script>
+
+    </body>
 </html>
+
